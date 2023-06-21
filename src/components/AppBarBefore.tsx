@@ -1,8 +1,8 @@
-import { AppBar, Box, IconButton, Toolbar, Typography, makeStyles, Backdrop } from "@mui/material";
-
+import { AppBar, Box, IconButton, Toolbar, Typography, Backdrop } from "@mui/material";
+import SignUpForm from "./SignUp";
+import LoginForm from "./Login";
 // import '@fontsource/poppins/700.css';
 // import '@fontsource/poppins/400.css';
-
 
 import logo from "../assets/logo_owl.svg";
 
@@ -32,6 +32,19 @@ function ResponsiveAppBar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+    };
+
+    const [buttonType, setButtonType] = React.useState('');
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+        // if (event.currentTarget === event.target) {
+        //     setOpen(false);
+        // }
+    };
+    const handleOpen = (type: string) => {
+        setButtonType(type);
+        setOpen(true);
     };
 
     return (
@@ -120,8 +133,16 @@ function ResponsiveAppBar() {
                                     {page}
                                 </Button>
                             ))}
-                            <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 'auto', ml: 1, mr: 1 }}>Регистрация</Button>
-                            <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 'auto', ml: 1, mr: 1 }}>Вход</Button>
+                            <Backdrop
+                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                open={open}
+                                onClick={handleClose}
+                            >
+                                {buttonType === 'Login' && <LoginForm />}
+                                {buttonType === 'Signup' && <SignUpForm />}
+                            </Backdrop>
+                            <Button className="gradientButton" onClick={() => handleOpen('Signup')} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 'auto', ml: 1, mr: 1 }}>Регистрация</Button>
+                            <Button className="gradientButton" onClick={() => handleOpen('Login')} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 'auto', ml: 1, mr: 1 }}>Вход</Button>
                         </Box>
                     </Toolbar>
                 </Container>
