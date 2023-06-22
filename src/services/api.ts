@@ -5,14 +5,15 @@ interface VideoFormData {
     url: string;
 }
 
+interface UserCreate {
+    email: string;
+    fio: string;
+    password: string;
+}
+
 const BASE_URL = "http://127.0.0.1:8000";
 
 const ApiService = {
-    async getAllItems() {
-        // make api call to get all data about Items
-        const response = await axios.get(`${BASE_URL}/items/`);
-        return await response.data;
-    },
     async sendVideoData(data: VideoFormData) {
         let status = "video added";
         const response = await axios
@@ -31,6 +32,18 @@ const ApiService = {
 
         console.log(result);
         return status;
+    },
+
+    async createUser(data: UserCreate) {
+        const response = await axios
+            .post(`${BASE_URL}/auth/user/create`, data)
+            .catch((error) => {
+                console.log(error);
+            });
+        let result = await response;
+
+        console.log(result);
+        return result;
     },
 };
 
