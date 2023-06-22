@@ -3,15 +3,7 @@ import { useEffect } from "react";
 import imgLink from "../assets/whitesection-img.svg";
 
 
-function Home() {
-    useEffect(() => {
-        // const fetchData = async () => {
-        //     const result = await ApiService.getAllItems();
-        //     setItems(result);
-        //     console.log(result);
-        // };
-        // fetchData();
-    }, []);
+function HomeContent() {
 
     return (
         <>
@@ -57,4 +49,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default HomeContent;

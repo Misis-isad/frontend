@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Paper, TextField, Typography, Box, Button, InputAdornment, Backdrop } from "@mui/material";
 import LoadingScreen from "./Loading";
 import DownloadIcon from '@mui/icons-material/Download';
+import Article from "./Article";
 const VideoForm = () => {
 
     const [open, setOpen] = React.useState(false);
@@ -51,10 +52,10 @@ const VideoForm = () => {
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={open}
             >
-                <LoadingScreen />
+                <Article />
             </Backdrop>
             {/* {open ? (<LoadingScreen/>) : null} */}
-            <Button className="gradientButton gradientYellow" onClick={handleOpen}  style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 5, ml: 'auto', mr: 'auto' }}>Сгенерировать</Button>
+            <Button className="gradientButton gradientYellow" href="/article"  style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 5, ml: 'auto', mr: 'auto' }}>Сгенерировать</Button>
         </Box>
     )
 }
