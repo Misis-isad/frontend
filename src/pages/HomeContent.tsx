@@ -3,19 +3,11 @@ import { useEffect } from "react";
 import imgLink from "../assets/whitesection-img.svg";
 
 
-function Home() {
-    useEffect(() => {
-        // const fetchData = async () => {
-        //     const result = await ApiService.getAllItems();
-        //     setItems(result);
-        //     console.log(result);
-        // };
-        // fetchData();
-    }, []);
+function HomeContent() {
 
     return (
         <>
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' }, justifyContent: 'space-evenly' }} mt={10} ml={5}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' }, justifyContent: 'space-evenly' }} mt={30} ml={5}>
                 <Box>
                     <img src={imgLink} alt="AI generating summary from video" width="500px" height="400px"></img>
                 </Box>
@@ -57,4 +49,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default HomeContent;

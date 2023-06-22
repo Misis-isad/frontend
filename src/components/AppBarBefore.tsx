@@ -94,6 +94,7 @@ function ResponsiveAppBar() {
                             edge="start"
                             color="inherit"
                             aria-label="menu"
+                            href="/"
                             sx={{ mr: 2 }}
                         >
                             {/* insert logo.jpeg from assets folder as img */}
@@ -115,7 +116,6 @@ function ResponsiveAppBar() {
                                 textDecoration: 'none',
                             }}
                         >
-                            Создай статью
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                             {pages.map((page) => (

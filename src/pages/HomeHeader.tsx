@@ -6,15 +6,6 @@ import main from "../assets/main-img.svg";
 import VideoForm from "../components/VideoForm";
 
 function Home() {
-    useEffect(() => {
-        // const fetchData = async () => {
-        //     const result = await ApiService.getAllItems();
-        //     setItems(result);
-        //     console.log(result);
-        // };
-        // fetchData();
-    }, []);
-
     const [isBoxVisible, setIsBoxVisible] = React.useState(true);
 
     const handleClick = () => {
@@ -68,3 +59,4 @@ function Home() {
 }
 
 export default Home;
+
