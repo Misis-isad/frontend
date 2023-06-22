@@ -44,8 +44,9 @@ function Article() {
                 // loading? <LoadingScreen/>
                 // :
 
-                <Box ref={ref} mt={10} ml={20} mr={20} style={{ position: 'relative', top: '-571px', height: '1400px'}}>
-                    <div className="articleTitleWrapper">
+                // <Box ref={ref} mt={10} ml={20} mr={20} style={{ position: 'relative', top: '-571px', height: '1400px'}}>
+                <Box ref={ref} mt={10} ml={20} mr={20}>
+                    {/* <div className="articleTitleWrapper">
                         <h1 className="articleTitle">{article.title}</h1>
                         <hr style={{
                             color: 'white',
@@ -54,7 +55,7 @@ function Article() {
                             width: '50%'
                         }} />
                         <h2 className="articleDate">{article.date}</h2>
-                    </div>
+                    </div> */}
                     <p>
                         В бухгалтерии важно правильно вести учет финансовых операций. Это помогает контролировать расходы и доходы компании. Бухгалтерия также занимается составлением отчетности и налоговых деклараций. Важно следить за соблюдением законодательства и правил бухгалтерского учета.
 
@@ -81,6 +82,7 @@ function Article() {
                         Бухгалтерия должна быть в курсе всех изменений в законодательстве и налоговом кодексе. Это поможет избежать штрафов и проблем с налоговой инспекцией.
 
                         В бухгалтерии необходимо использовать специальное программное обеспечение для учета финансовых операций. Это поможет автоматизировать процессы и сократить время на выполнение задач.
+                        <img src={imgLink} alt="" style={{ float: "right" }} />
                     </p>
                     <p>
                         Бухгалтерия - это важная составляющая любого бизнеса, которая позволяет управлять финансами компании и отслеживать все финансовые операции. Без правильно настроенной бухгалтерии, любая компания рискует потерять деньги и столкнуться с серьезными проблемами.
@@ -91,13 +93,19 @@ function Article() {
 
                         В общем, хорошо организованная бухгалтерия является важной частью любого успешного бизнеса. Она позволяет компании контролировать свои финансы и принимать важные стратегические решения, что помогает ей быть конкурентноспособной на рынке.
                     </p>
-                    <img src={imgLink} alt="" />
-                    <Paper elevation={6} sx={{ display: "flex", justifyContent: "spaceBetween", alignItems: "center" }}
+                    {/* <Paper elevation={6} sx={{ display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px' }}
                         style={{
                             width: '380px', height: '54px', borderRadius: '15px'
                         }}>
-                        Hello
-                    </Paper>
+                        Перейти на видео
+                        <Button href={article.video_link} target="_blanc" sx={{backgroundColor: 'black'}}></Button>
+                    </Paper> */}
+                        <Button href={article.video_link} target="_blanc" sx={{backgroundColor: 'white', 
+                        display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px',
+                        boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.25)' }}
+                        style={{
+                            width: '380px', height: '54px', borderRadius: '15px'
+                        }}>Перейти на видео</Button>
                 </Box>
             }
 

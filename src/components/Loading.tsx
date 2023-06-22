@@ -74,7 +74,6 @@ const LoadingScreen = () => {
                     aria-label="menu"
                     sx={{ mr: 2, ml: 1 }}
                 >
-                    {/* insert logo.jpeg from assets folder as img */}
                     <img width="40px" height="40px" src={logo} alt="logo" style={{ width: '120px', height: '77px' }} />
                 </IconButton>
                 <Container sx={{
