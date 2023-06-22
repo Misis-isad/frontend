@@ -1,50 +1,62 @@
-import { useState } from "react";
-import { TextField, Button, Typography, Paper, Grid } from "@mui/material";
-import ApiService from "../services/api";
+import * as React from 'react';
+import { Paper, TextField, Typography, Box, Button, InputAdornment, Backdrop } from "@mui/material";
+import LoadingScreen from "./Loading";
+import DownloadIcon from '@mui/icons-material/Download';
+const VideoForm = () => {
 
-export default function VideoForm() {
-    // create input form for video url and add function to submit
-    // the form to the api
-    // form must include one text field and one submit button
-    // form must be wrapped in a Card component
-    // form must be build from MUI components
-    const [url, seturl] = useState<string>("");
-
-    const onTextChange = (e: any) => seturl(e.target.value);
-    const handleSubmit = async () => {
-        const result = await ApiService.sendVideoData({ url });
-        alert(result);
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
     };
-    const handleReset = () => seturl("");
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
     return (
-        <Paper sx={{ maxHeight: "600", maxWidth: "1200" }}>
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="left"
-                justifyContent="left"
-                sx={{ minWidth: 400, padding: "20px" }}
-            >
-                <Typography variant="h6" component="div">
-                    Обработка видео
+        <Box flexDirection={'column'} alignItems={'center'} style={{ display: 'flex' }}>
+            <Paper elevation={6}
+                style={{
+                    width: '600px', height: '230px', borderRadius: '30px'
+                }}>
+                <Typography variant="h2"
+                    sx={{
+                        textAlign: 'center',
+                        mr: 2,
+                        mt: 2.5,
+                        pt: 4,
+                        flexGrow: 1,
+                        fontFamily: 'PT Sans Caption',
+                        fontWeight: 700,
+                        fontSize: '24px',
+                        color: '#550C64',
+                        textDecoration: 'none',
+                    }}
+                >
+                    Сгенерируйте статью по ссылке
                 </Typography>
+                <Box display="flex" alignItems="center" justifyContent="center" flexDirection={'column'} sx={{ mt: 4 }}>
+                    <TextField id="outlined-basic" label="Ссылка на видео с YouTube" variant="outlined" sx={{ mt: 1, width: '400px' }} color="secondary"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <DownloadIcon sx={{ color: '#8932A7' }} />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Box>
+            </Paper>
 
-                <TextField
-                    onChange={onTextChange}
-                    value={url}
-                    label={"Сылка на видео в youtube "} //optional
-                />
-                <Grid container spacing={2} alignContent={"center"}>
-                    <Grid item>
-                        <Button onClick={handleSubmit}>Submit</Button>
-                    </Grid>
-                    <Grid item>
-                        <Button onClick={handleReset}>Reset</Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Paper>
-    );
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+            >
+                <LoadingScreen />
+            </Backdrop>
+            {/* {open ? (<LoadingScreen/>) : null} */}
+            <Button className="gradientButton gradientYellow" onClick={handleOpen}  style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 5, ml: 'auto', mr: 'auto' }}>Сгенерировать</Button>
+        </Box>
+    )
 }
+
+export default VideoForm

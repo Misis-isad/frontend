@@ -38,9 +38,6 @@ function ResponsiveAppBar() {
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);
-        // if (event.currentTarget === event.target) {
-        //     setOpen(false);
-        // }
     };
     const handleOpen = (type: string) => {
         setButtonType(type);
