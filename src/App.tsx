@@ -43,9 +43,9 @@ function App() {
                         style={{ borderBottom: 'none' }}
                         options={{
                             height: 60,
-                            amplitude: 50,
+                            amplitude: 100,
                             speed: 0.2,
-                            points: 4
+                            points: 2,
                         }}
                     />
                 </div>
@@ -62,12 +62,12 @@ function App() {
                     <Wave
                         style={{ transform: `rotate(180deg)` }}
                         fill="#ffffff"
-                        paused={false}
+                        paused={true}
                         options={{
                             height: 60,
                             amplitude: 30,
                             speed: 0.2,
-                            points: 4
+                            points: 2,
                         }}
                     />
                 </div>
