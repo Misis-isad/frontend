@@ -66,6 +66,10 @@ p{
 .articleTitleWrapper{
     margin-bottom: 400px;
 }
+
+.css-wjh20t-MuiPagination-ul {
+    justify-content: center;
+}
 /* .gradientSection{
     width: 100%;
     height: 2000px;

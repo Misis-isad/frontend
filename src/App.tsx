@@ -2,11 +2,14 @@ import HomeHeader from "./pages/HomeHeader";
 import HomeContent from "./pages/HomeContent";
 import Article from "./components/Article";
 import ArticleHeader from "./components/ArticleHeader";
+import VideosHeader from "./pages/VideosHeader";
+import AllArticlesHeader from "./pages/AllArticlesHeader";
+import VideosContent from "./pages/VideosContent";
 import VideoCard from "./components/VideoCard";
 import Wave from 'react-wavify'
 import { useState }from 'react'
 import "./App.css";
-import CustomAppBar from "./components/AppBarBefore";
+import CustomAppBar from "./components/AppBar";
 import { Container } from "@mui/material";
 import { Blob } from "react-blob"
 import { Routes, Route } from 'react-router-dom'
@@ -30,6 +33,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomeHeader/>}/>
                     <Route path="/article" element={<ArticleHeader onChildParameterChange={handleChildParameterChange}/>}/>
+                    <Route path="/myVideos" element={<VideosHeader/>}/>
+                    <Route path="/allArticles" element={<AllArticlesHeader/>}/>
                 </Routes>
                 <div style={{ margin: 0, padding: 0, position: 'absolute', bottom: 0, width: '100%', borderBottom: 'none', marginBottom: '-5px' }}>
                     <Wave
@@ -46,15 +51,10 @@ function App() {
                 </div>
             </Container>
             <Container className="whiteSection" style={{ maxWidth: "100%", backgroundColor: "white"}}>
-                {/* <HomeContent /> */}
-                {/* <Article /> */}
-                {/* <VideoCard />
-                <VideoCard />
-                <VideoCard />
-                <VideoCard /> */}
                 <Routes>
                     <Route path="/" element={<HomeContent/>}/>
                     <Route path="/article" element={<Article />}/>
+                    <Route path="/myVideos" element={<VideosContent/>}/>
                 </Routes>
             </Container>
             <Container sx={{ backgroundColor: 'black' }} style={{ maxWidth: "100%", height: "251px", padding: 0, margin: 0, position: 'relative' }}>
