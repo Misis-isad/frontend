@@ -77,7 +77,7 @@ function Article() {
                     </p>
                         <Button href={article.video_link} target="_blanc" sx={{backgroundColor: 'white', 
                         display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px',
-                        boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.25)' }}
+                        boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.25)', color:"#550C64" }}
                         style={{
                             width: '380px', height: '54px', borderRadius: '15px'
                         }}>Перейти на видео</Button>

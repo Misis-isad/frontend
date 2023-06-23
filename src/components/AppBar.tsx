@@ -19,7 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 const pages = [['Главная', '/'], ['Статьи', '/allArticles']];
 const pages_auth = [['Главная', '/'], ['Статьи', '/allArticles'], ['Мои Видео', '/myVideos']];
-const isAuthorized = false;
+const isAuthorized = true;
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);

@@ -11,6 +11,11 @@ interface UserCreate {
     password: string;
 }
 
+interface UserLogin {
+    email: string;
+    password: string;
+}
+
 const BASE_URL = "http://127.0.0.1:8000";
 
 const ApiService = {
@@ -44,6 +49,24 @@ const ApiService = {
 
         console.log(result);
         return result;
+    },
+
+    async loginUser(data: UserLogin) {
+        let status = "authorized";
+        const response = await axios
+            .post(`${BASE_URL}/auth/user/login`, data)
+            .catch((error) => {
+                console.log(error);
+                if (error.response.status === 401) {
+                    console.log("unathorized user");
+                    status = "unathorized";
+                }
+            });
+
+        let result = await response;
+
+        console.log(result);
+        return status;
     },
 };
 

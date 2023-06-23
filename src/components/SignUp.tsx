@@ -78,53 +78,69 @@ const SignUpForm = () => {
     // handle submit
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        let errorEmpty = false;
         // check if passwords match
         if (password !== confirmPasswod || !password || !confirmPasswod) {
             setError4(true);
+            console.log(error4);
+            errorEmpty = true;
             setHelperText4('Пароли не совпадают');
         }
         else {
             setError4(false);
+            errorEmpty = false;
             setHelperText4('');
         }
 
         //check if password valid
         if (!password) {
             setError3(true);
+            errorEmpty = true;
+            console.log(error3)
             setHelperText3('Введите пароль');
         }
         else {
             setError3(false);
+            errorEmpty = false;
             setHelperText3('');
         }
 
         // check if email is valid and not empty string
         if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
             setError2(false);
+            errorEmpty = false;
+            console.log(error2)
             setHelperText2('');
         } else {
             setError2(true);
+            errorEmpty = true;
             setHelperText2('Неверный формат ввода email');
         }
 
         // check if fio contains three words (name, surname, patronymic) and fio != undefined
         if (fio.split(" ").length !== 3 || !fio) {
             setError1(true);
+            errorEmpty = true;
+            console.log(error1)
             setHelperText1('Введите ФИО в три слова через пробел');
         }
         else {
             setError1(false);
+            errorEmpty = false;
             setHelperText1('');
         }
 
-        if(!error1 && !error2 && !error3 && !error4){
+        console.log(errorEmpty, error1, error2, error3, error4, email, password, fio)
+
+        if((!error1 && !error2 && !error3 && !error4 && !errorEmpty)) {
             //send data to server
-            let result = ApiService.createUser({
-                email: email,
-                password: password,
-                fio: fio,
-            });
-            console.log(result);
+            // let result = ApiService.createUser({
+            //     email: email,
+            //     password: password,
+            //     fio: fio,
+            // });
+            // console.log(result);
+            console.log('hereeeee')
         }
     };
 

@@ -1,6 +1,86 @@
-import { Paper, TextField, Typography, Box , Button} from "@mui/material";
+import { useState } from "react";
+import { Paper, TextField, Typography, Box, Button } from "@mui/material";
+import ApiService from "../services/api";
 
 const LoginForm = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [error1, setError1] = useState(false);
+    const [helperText1, setHelperText1] = useState('');
+    const [error2, setError2] = useState(false);
+    const [helperText2, setHelperText2] = useState('');
+
+
+    //handle email field changes
+    const handleEmailChange = (event: any) => {
+        // check if email is valid
+        if (
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                event.target.value
+            )
+        ) {
+            setError1(false);
+            setHelperText1('');
+        } else {
+            setError1(true);
+            setHelperText1('Неверный формат ввода email');
+        }
+        setEmail(event.target.value);
+    };
+
+    // handle password field changes
+    const handlePasswordChange = (event: any) => {
+        if (event.target.value.length < 8) {
+            setError2(true);
+            setHelperText2('Пароль содержит минимум 8 символов');
+        }
+        else {
+            setError2(false);
+            setHelperText2('');
+        }
+        setPassword(event.target.value);
+    };
+
+        // handle submit
+        const handleSubmit = (event: any) => {
+            let errorEmpty = false;
+            event.preventDefault();
+    
+            //check if password valid
+            if (!password) {
+                setError2(true);
+                errorEmpty = true;
+                setHelperText2('Введите пароль');
+            }
+            else {
+                setError2(false);
+                errorEmpty = false;
+                setHelperText2('');
+            }
+    
+            // check if email is valid and not empty string
+            if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                setError1(false);
+                errorEmpty = false;
+                setHelperText1('');
+            } else {
+                setError1(true);
+                errorEmpty = true;
+                setHelperText1('Введите email');
+            }
+    
+            if(!error1 && !error2 && !errorEmpty){
+                //send data to server
+                // let result = ApiService.loginUser({
+                //     email: email,
+                //     password: password,
+                // });
+                // console.log(result);
+                console.log('hereeeeeeeeeeeLogin');
+            }
+        };
+
     return (
         <Paper onClick={(e) => e.stopPropagation()} elevation={6}
             style={{
@@ -35,10 +115,30 @@ const LoginForm = () => {
             >
                 Введите логин и пароль для авторизации на сайте
             </Typography>
-            <Box display="flex" alignItems="center" justifyContent="center" flexDirection={'column'} sx={{mt:4}}>
-            <TextField id="outlined-basic" label="Email" variant="outlined" color="secondary" sx={{width: '300px'}}/>
-            <TextField id="outlined-basic" label="Пароль" variant="outlined" sx={{mt:3, width: '300px'}} color="secondary"/>
-            <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 6, mb: 'auto', ml: 1, mr: 1 }}>Вход</Button>
+            <Box display="flex" alignItems="center" justifyContent="center" flexDirection={'column'} sx={{ mt: 4 }}>
+                <TextField
+                    id="outlined-basic"
+                    label="Email"
+                    variant="outlined"
+                    color="secondary"
+                    error={error1}
+                    helperText={helperText1}
+                    value={email}
+                    onChange={handleEmailChange}
+                    sx={{ width: '300px' }}
+                />
+                <TextField
+                    id="outlined-basic"
+                    label="Пароль"
+                    variant="outlined"
+                    sx={{ mt: 3, width: '300px' }}
+                    color="secondary"
+                    error={error2}
+                    helperText={helperText2}
+                    value={password}
+                    onChange={handlePasswordChange}
+                />
+                <Button className="gradientButton" onClick={handleSubmit} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 6, mb: 'auto', ml: 1, mr: 1 }}>Вход</Button>
             </Box>
         </Paper>
     )

@@ -5,9 +5,9 @@ import { Pagination, Box } from "@mui/material";
 
 
 let obj = {
-    imgLink: "/src/assets/logo.jpeg",
+    link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
     title: "Бухгалтерия за 5 минут",
-    description: "Супер интересная статья"
+    status: "в обработке"
 }
 let allVideos = Array(10).fill(obj);
 allVideos[7] = {
@@ -54,7 +54,7 @@ function VideoContent() {
         <>
             <Container>
                 {currentVideos.map((video) => (
-                    <VideoCard imgLink={video.imgLink} title={video.title} description={video.description} />
+                    <VideoCard link={video.link} title={video.title} status={video.status} />
                 ))}
                 <Pagination
                     count={Math.ceil(allVideos.length / videosPerPage)}
