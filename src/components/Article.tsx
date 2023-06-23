@@ -6,15 +6,15 @@ import LoadingScreen from "./Loading";
 import * as React from 'react';
 
 function Article() {
-    // const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
-    // useEffect(() =>{
-    //     setLoading(true)
-    //     setTimeout(() =>{
-    //         setLoading(false)
+    useEffect(() =>{
+        setLoading(true)
+        setTimeout(() =>{
+            setLoading(false)
 
-    //     }, 1000)
-    // }, []);
+        }, 8000)
+    }, []);
     // useEffect(() => {
     //     const fetchData = async () => {
     //         const result = await ApiService.getAllItems();
@@ -32,30 +32,12 @@ function Article() {
         html_data: ''
     }
 
-    const ref = useRef(null);
-    let heightBox = 0;
-    React.useEffect(() => {
-        // heightBox = ref.current.offsetHeight;
-    }, []);
-
     return (
         <>
             {
-                // loading? <LoadingScreen/>
-                // :
-
-                // <Box ref={ref} mt={10} ml={20} mr={20} style={{ position: 'relative', top: '-571px', height: '1400px'}}>
-                <Box ref={ref} mt={10} ml={20} mr={20}>
-                    {/* <div className="articleTitleWrapper">
-                        <h1 className="articleTitle">{article.title}</h1>
-                        <hr style={{
-                            color: 'white',
-                            backgroundColor: 'white',
-                            height: 1,
-                            width: '50%'
-                        }} />
-                        <h2 className="articleDate">{article.date}</h2>
-                    </div> */}
+                loading? <LoadingScreen/>
+                :
+                <Box mt={10} ml={20} mr={20}>
                     <p>
                         В бухгалтерии важно правильно вести учет финансовых операций. Это помогает контролировать расходы и доходы компании. Бухгалтерия также занимается составлением отчетности и налоговых деклараций. Важно следить за соблюдением законодательства и правил бухгалтерского учета.
 
@@ -93,13 +75,6 @@ function Article() {
 
                         В общем, хорошо организованная бухгалтерия является важной частью любого успешного бизнеса. Она позволяет компании контролировать свои финансы и принимать важные стратегические решения, что помогает ей быть конкурентноспособной на рынке.
                     </p>
-                    {/* <Paper elevation={6} sx={{ display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px' }}
-                        style={{
-                            width: '380px', height: '54px', borderRadius: '15px'
-                        }}>
-                        Перейти на видео
-                        <Button href={article.video_link} target="_blanc" sx={{backgroundColor: 'black'}}></Button>
-                    </Paper> */}
                         <Button href={article.video_link} target="_blanc" sx={{backgroundColor: 'white', 
                         display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px',
                         boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.25)' }}

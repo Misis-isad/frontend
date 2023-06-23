@@ -8,11 +8,26 @@ const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [confirmPasswod, setConfirmPassword] = useState("");
 
+    const [error1, setError1] = useState(false);
+    const [helperText1, setHelperText1] = useState('');
+    const [error2, setError2] = useState(false);
+    const [helperText2, setHelperText2] = useState('');
+    const [error3, setError3] = useState(false);
+    const [helperText3, setHelperText3] = useState('');
+    const [error4, setError4] = useState(false);
+    const [helperText4, setHelperText4] = useState('');
+
+
     // handle fio field changes
     const handleFioChange = (event: any) => {
         // check if fio contains three words (name, surname, patronymic)
         if (event.target.value.split(" ").length !== 3) {
-            //handle error
+            setError1(true);
+            setHelperText1('Введите ФИО в три слова через пробел');
+        }
+        else {
+            setError1(false);
+            setHelperText1('');
         }
         setFio(event.target.value);
     };
@@ -20,18 +35,43 @@ const SignUpForm = () => {
     //handle email field changes
     const handleEmailChange = (event: any) => {
         // check if email is valid
-        if (!event.target.value.includes("@")) {
-            //handle error
+        if (
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                event.target.value
+            )
+        ) {
+            setError2(false);
+            setHelperText2('');
+        } else {
+            setError2(true);
+            setHelperText2('Неверный формат ввода email');
         }
         setEmail(event.target.value);
     };
 
     // handle password field changes
     const handlePasswordChange = (event: any) => {
+        if (event.target.value.length < 8) {
+            setError3(true);
+            setHelperText3('Пароль должен содержать минимум 8 символов');
+        }
+        else {
+            setError3(false);
+            setHelperText3('');
+        }
         setPassword(event.target.value);
     };
 
     const handleConfirmPasswordChange = (event: any) => {
+        if (password !== event.target.value) {
+            setError4(true);
+            setHelperText4('Пароли не совпадают');
+        }
+        else {
+            setError4(false);
+            setHelperText4('');
+        }
+
         setConfirmPassword(event.target.value);
     };
 
@@ -39,26 +79,53 @@ const SignUpForm = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         // check if passwords match
-        if (password !== confirmPasswod) {
-            // handle error
+        if (password !== confirmPasswod || !password || !confirmPasswod) {
+            setError4(true);
+            setHelperText4('Пароли не совпадают');
         }
+        else {
+            setError4(false);
+            setHelperText4('');
+        }
+
+        //check if password valid
+        if (!password) {
+            setError3(true);
+            setHelperText3('Введите пароль');
+        }
+        else {
+            setError3(false);
+            setHelperText3('');
+        }
+
         // check if email is valid and not empty string
-        if (!email || (email === "" && !email.includes("@"))) {
-            //handle error
+        if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            setError2(false);
+            setHelperText2('');
+        } else {
+            setError2(true);
+            setHelperText2('Неверный формат ввода email');
         }
 
         // check if fio contains three words (name, surname, patronymic) and fio != undefined
         if (fio.split(" ").length !== 3 || !fio) {
-            //handle error
+            setError1(true);
+            setHelperText1('Введите ФИО в три слова через пробел');
+        }
+        else {
+            setError1(false);
+            setHelperText1('');
         }
 
-        // send data to server
-        let result = ApiService.createUser({
-            email: email,
-            password: password,
-            fio: fio,
-        });
-        console.log(result);
+        if(!error1 && !error2 && !error3 && !error4){
+            //send data to server
+            let result = ApiService.createUser({
+                email: email,
+                password: password,
+                fio: fio,
+            });
+            console.log(result);
+        }
     };
 
     return (
@@ -111,7 +178,9 @@ const SignUpForm = () => {
             >
                 <TextField
                     id="outlined-basic"
-                    label="Фамилия Имя"
+                    label="Фамилия Имя Отчество"
+                    error={error1}
+                    helperText={helperText1}
                     variant="outlined"
                     color="secondary"
                     sx={{ width: "300px" }}
@@ -121,6 +190,8 @@ const SignUpForm = () => {
                 <TextField
                     id="outlined-basic"
                     label="Email"
+                    error={error2}
+                    helperText={helperText2}
                     variant="outlined"
                     color="secondary"
                     sx={{ mt: 3, width: "300px" }}
@@ -130,6 +201,8 @@ const SignUpForm = () => {
                 <TextField
                     id="outlined-basic"
                     label="Пароль"
+                    error={error3}
+                    helperText={helperText3}
                     variant="outlined"
                     sx={{ mt: 3, width: "300px" }}
                     color="secondary"
@@ -139,6 +212,8 @@ const SignUpForm = () => {
                 <TextField
                     id="outlined-basic"
                     label="Подтверждение Пароля"
+                    error={error4}
+                    helperText={helperText4}
                     variant="outlined"
                     sx={{ mt: 3, width: "300px" }}
                     color="secondary"

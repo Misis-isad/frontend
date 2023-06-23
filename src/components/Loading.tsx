@@ -1,38 +1,22 @@
-import { Container, Typography, Box, IconButton } from '@mui/material'
+import { Container, Typography, Box, IconButton, Backdrop } from '@mui/material'
 import { BounceLoader, BarLoader } from "react-spinners";
 // import DrawBlob, { BlobType } from 'node_modules';
 import { useState, useEffect } from 'react'
 import { Blob } from 'react-blob'
 import { CSSTransition } from "react-transition-group";
 import logo from "../assets/logo_owl.svg";
-// import { fadeIn } from '@react-animations';
-// import { useTransition, Animated } from '@react-spring/animated';
 
 const texts = ["Осталось совсем чуть-чуть", "Скоро случится чудо", "Магия на подходе", 'Ты уже почти у цели!', "Все приходит вовремя для того, кто умеет ждать )"];
 
 const LoadingScreen = () => {
-    // const [index, setIndex] = useState(0);
     const [text, setText] = useState("Придется немного подождать)");
-
-    // useEffect(() => {
-    //   const interval = setInterval(() => {
-    //     setIndex((prevIndex) =>
-    //       prevIndex === texts.length - 1 ? 0 : prevIndex + 1
-    //     );
-    //   }, 3000);
-    //   return () => clearInterval(interval);
-    // }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
-          setText(texts[Math.floor(Math.random() * texts.length)]);
+            setText(texts[Math.floor(Math.random() * texts.length)]);
         }, 4000);
         return () => clearInterval(interval);
-      }, []);
-
-    // const nextText = () => {
-    //     setIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    // };
+    }, []);
 
     function getRandomNumber(min: number, max: number): number {
         return Math.random() * (max - min) + min;
@@ -43,8 +27,8 @@ const LoadingScreen = () => {
 
         for (let i = 0; i < numberOfBlobs; i++) {
             let size = getRandomNumber(25, 35) + 'vh';
-            let top = `${getRandomNumber(-5, 8)* i + 50}%`;
-            let right = `${23* i }%`; // shift to the right by a random amount
+            let top = `${getRandomNumber(-5, 8) * i + 50}%`;
+            let right = `${23 * i}%`; // shift to the right by a random amount
 
             blobs.push(<Blob size={size}
                 style={{
@@ -134,16 +118,11 @@ const LoadingScreen = () => {
                         >
                             {texts[index]}
                             {/* Осталось совсем чуть-чуть */}
-                    {/* </Typography> */} 
-                    <Box>
-                        {/* <Blob size="100px" style={{ backgroundColor: 'red' }}>
-                                <div style={{ width: '100%', height: '100%', backgroundColor: 'blue' }} />
-                            </Blob> */}
+                        {/* </Typography> */}
+                        {createMultipleBlobs(6)}
                     </Box>
-                    {createMultipleBlobs(6)}
-                </Box>
-            </Container>
-            {/* <Blob size="50vh"
+                </Container>
+                {/* <Blob size="50vh"
                     style={{
                         position: 'absolute',
                         top: '80%',
@@ -155,11 +134,21 @@ const LoadingScreen = () => {
                         fontSize: '50vh',
                     }}
                 /> */}
-        </Container >
+            </Container >
         </>
     )
 }
 
-export default LoadingScreen
+function LoadingWrap() {
+    return (
+        <Backdrop open={true}
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+            <LoadingScreen/>
+        </Backdrop>
+    );
+}
+
+export default LoadingWrap
 
 // https://dev.to/phandangkhoa96/a-blob-animation-can-make-your-website-more-lively-58p5
