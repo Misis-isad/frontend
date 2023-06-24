@@ -125,6 +125,8 @@ const VideoForm = () => {
             );
             let result = await response;
             setIsLoading(false);
+
+            ///здесь нужен запрос articles/{record_id}
             console.log('video', result.data.id);
             navigate(`article/${result.data.id}`)
 

@@ -129,7 +129,6 @@ const ApiService = {
         const response = await axios 
             .post(`${BASE_URL}/api/v1/record/${data.record_id}/published_status?published=${data.published}`,null,  config)
         // .catch(handleError);
-        //тут токен не отправляется почему-то
         let result = await response;
         console.log(result);
         console.log(result.data.id);
