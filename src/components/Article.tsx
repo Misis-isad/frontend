@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import ApiService from "../services/api";
 import { useParams } from "react-router-dom";
@@ -9,10 +9,10 @@ function Article() {
     let { id } = useParams();
 
     useEffect(() => {
-        if(id){      
-            let responseArticle = ApiService.getArticle(parseInt(id)) 
-            responseArticle.then((data) => {setDataArticle(data.data.body)})
-            
+        if (id) {
+            let responseArticle = ApiService.getArticle(parseInt(id))
+            responseArticle.then((data) => { setDataArticle(data.data.body) })
+
             console.log('article', dataArticle);
         }
     }, []);
@@ -36,16 +36,27 @@ function Article() {
         <div dangerouslySetInnerHTML={{ __html: htmlString }} />
     );
 
+    async function handleSubmit() {
+        //send data to server
+        let response = ApiService.setPublishedStatus(
+            {
+                record_id: parseInt(id || ''),
+                published: true
+            }
+        );
+        let result = await response;
+        console.log('published in article', result);
+
+        console.log('hereeeee')
+    }
+
 
     return (
         <>
-            {/* {
-                loading ? <LoadingScreen />
-                    : */}
-                    <Box mt={10} ml={20} mr={20}>
-                        {/* {dataArticle} */}
-                        <HtmlComponent htmlString={dataArticle} />
-                        {/* <p>
+            <Box mt={10} ml={20} mr={20}>
+                {/* {dataArticle} */}
+                <HtmlComponent htmlString={dataArticle} />
+                {/* <p>
                             В бухгалтерии важно правильно вести учет финансовых операций. Это помогает контролировать расходы и доходы компании. Бухгалтерия также занимается составлением отчетности и налоговых деклараций. Важно следить за соблюдением законодательства и правил бухгалтерского учета.
 
                             Бухгалтерия должна иметь хорошую организацию и структуру. В ней должны быть определены все процессы и процедуры. Также важно иметь хорошую систему контроля и аудита.
@@ -90,8 +101,24 @@ function Article() {
                             style={{
                                 width: '380px', height: '54px', borderRadius: '15px'
                             }}>Перейти на видео</Button> */}
-                    </Box>
-            {/* } */}
+
+                <Button href="https://www.youtube.com/watch?v=f6rAjdMY8lg" target="_blanc" sx={{
+                    backgroundColor: 'white',
+                    display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px',
+                    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.25)', color: "#1F1B4C"
+                }}
+                    style={{
+                        width: '380px', height: '54px', borderRadius: '15px'
+                    }}>Перейти на видео</Button>
+                <Button onClick={handleSubmit} sx={{
+                    backgroundColor: 'white',
+                    display: "flex", justifyContent: "spaceBetween", alignItems: "center", marginBottom: '40px',
+                    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.25)', color: "#1F1B4C"
+                }}
+                    style={{
+                        width: '380px', height: '54px', borderRadius: '15px'
+                    }}>Опубликовать</Button>
+            </Box>
 
         </>
     );

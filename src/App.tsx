@@ -4,6 +4,7 @@ import Article from "./components/Article";
 import ArticleHeader from "./components/ArticleHeader";
 import VideosHeader from "./pages/VideosHeader";
 import AllArticlesHeader from "./pages/AllArticlesHeader";
+import AllArticlesContent from "./pages/AllArticlesContent";
 import VideosContent from "./pages/VideosContent";
 import Wave from 'react-wavify'
 import { useState }from 'react'
@@ -51,6 +52,7 @@ function App() {
                     <Route path="/" element={<HomeContent/>}/>
                     <Route path="/article/:id" element={<Article/>}/>
                     <Route path="/myVideos" element={<VideosContent/>}/>
+                    <Route path="/allArticles" element={<AllArticlesContent/>}/>
                 </Routes>
             </Container>
             <Container sx={{ backgroundColor: 'black' }} style={{ maxWidth: "100%", height: "251px", padding: 0, margin: 0, position: 'relative' }}>

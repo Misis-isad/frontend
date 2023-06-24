@@ -52,6 +52,11 @@ interface AllRecords {
     offset: number;
 }
 
+interface PublishedStatus {
+    record_id: number;
+    published: boolean;
+}
+
 function getToken() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -112,6 +117,25 @@ const ApiService = {
         return result;
     },
 
+
+    async setPublishedStatus(data: PublishedStatus) {
+        // let status = "video added";
+        let config = {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }
+        console.log(getToken());
+        const response = await axios 
+            .post(`${BASE_URL}/api/v1/record/${data.record_id}/published_status?published=${data.published}`,null,  config)
+        // .catch(handleError);
+        //тут токен не отправляется почему-то
+        let result = await response;
+        console.log(result);
+        console.log(result.data.id);
+        return result;
+    },
+
     async getArticle(data: number) {
         let config = {
             headers: {
@@ -123,7 +147,8 @@ const ApiService = {
         console.log('were here', result.data.body);
         return result;
     },
-    async getAllRecords(data: AllRecords) : Promise<RecordDto[]>  {
+
+    async getAllRecords(data: AllRecords): Promise<RecordDto[]> {
         let config = {
             headers: {
                 Authorization: `Bearer ${getToken()}`
@@ -138,7 +163,26 @@ const ApiService = {
         // let result: <RecordDto[]> = await response.data;
         console.log('all records in api', result);
         // convert result.data to RecordDto
-        
+
+        return result.data;
+    },
+
+    async getPublishedRecords(data: AllRecords): Promise<RecordDto[]> {
+        let config = {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            },
+            params: data
+        }
+        // console.log(getToken());
+        const response = await axios.get(`${BASE_URL}/api/v1/record/published`, config);
+        //create result type RecordDto[] from response.data
+        let result = await response;
+        // define type of result
+        // let result: <RecordDto[]> = await response.data;
+        console.log('all published records in api', result);
+        // convert result.data to RecordDto
+
         return result.data;
     },
 
