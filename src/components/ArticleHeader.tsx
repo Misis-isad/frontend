@@ -1,7 +1,7 @@
 const article = {
-    title: 'Статья',
+    title: 'Сгенерированная Статья',
     video_link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
-    date: '22.06.2025',
+    date: '24.06.2023',
     html_data: ''
 }
 

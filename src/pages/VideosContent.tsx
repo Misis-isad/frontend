@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import VideoCard from "../components/VideoCard";
 import { Pagination} from "@mui/material";
 import ApiService from "../services/api";
+// import RecordDto from "../services/api";
 
 
 let obj = {
     link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
-    title: "Бухгалтерия за 5 минут",
+    title: "Бухгалтерия",
     status: "в обработке",
     id: 5
 }
@@ -36,9 +37,17 @@ function VideoContent() {
     };
 
     useEffect(() => {
-        let responseArticle = ApiService.getAllRecords({limit: 10, offset: 0})
-        responseArticle.then((data) => { setDataRecords(data.data) })
+        const fetchData = async () => {
+            const data: any = await ApiService.getAllRecords({ limit: 10, offset: 0 });
+            setDataRecords(data);
+            //986
 
+            // All you have to do is define your result as a string array, like the following:
+
+            // const result : string[] = [];
+            // Without defining the array type, it by default will be never. So when you tried to add a string to it, it was a type mismatch, and so it threw the error you saw.
+        };
+        fetchData();
         console.log('all records!!!', dataRecords);
     }, []);
 
@@ -49,8 +58,8 @@ function VideoContent() {
     return (
         <>
             <Container>
-                {currentVideos.map((video) => (
-                    <VideoCard link={video.link} title={video.title} status={video.status} id={video.id} />
+                {dataRecords.map((video: any) => (
+                    <VideoCard link={video.video_link} title={video.title} status={"Готово"} id={video.id} />
                 ))}
                 <Pagination
                     count={Math.ceil(allVideos.length / videosPerPage)}

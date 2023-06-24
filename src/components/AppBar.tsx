@@ -155,7 +155,7 @@ function ResponsiveAppBar() {
                                         sx={{ width: 56, height: 56 , 
                                         mr: 2, mt: 'auto', mb: 'auto', ml: 2}}
                                     />
-                                    <Button onClick={clearAll} href="/">Exit</Button>
+                                    <Button onClick={clearAll} href="/" style={{color: 'white'}}>Выход</Button>
                                     </>
                                 )
                             }

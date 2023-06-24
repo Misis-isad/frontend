@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const imgLink = "/src/assets/logo.jpeg";
+const imgLink = "/src/assets/background_card.jpg";
 
 interface Props {
     link: string;

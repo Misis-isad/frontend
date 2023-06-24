@@ -24,6 +24,19 @@ interface UserLogin {
     password: string;
 }
 
+interface RecordDto {
+    id: number;
+    title: string;
+    video_link: string;
+    annotation_length: number;
+    article_length: number;
+    start_timecode: string;
+    end_timecode: string;
+    preview_picture: string;
+    published: boolean;
+    screenshot_timing: number;
+}
+
 let token;
 // localStorage.getItem("token");
 // interface AxiosAuthenticateHeader {
@@ -34,7 +47,7 @@ let token;
 //     Authorization: string;
 // }
 
-interface AllRecords{
+interface AllRecords {
     limit: number;
     offset: number;
 }
@@ -44,7 +57,7 @@ function getToken() {
     if (token) {
         return token;
     }
-    else{
+    else {
         setAuthorization(false);
     }
 }
@@ -92,14 +105,14 @@ const ApiService = {
         console.log(getToken());
         const response = await axios
             .post(`${BASE_URL}/api/v1/record/create`, data, config)
-            // .catch(handleError);
+        // .catch(handleError);
         let result = await response;
         console.log(result);
         console.log(result.data.id);
         return result;
     },
-    
-    async getArticle(data: number){
+
+    async getArticle(data: number) {
         let config = {
             headers: {
                 Authorization: `Bearer ${getToken()}`
@@ -110,7 +123,7 @@ const ApiService = {
         console.log('were here', result.data.body);
         return result;
     },
-    async getAllRecords(data: AllRecords){
+    async getAllRecords(data: AllRecords) : Promise<RecordDto[]>  {
         let config = {
             headers: {
                 Authorization: `Bearer ${getToken()}`
@@ -119,17 +132,22 @@ const ApiService = {
         }
         // console.log(getToken());
         const response = await axios.get(`${BASE_URL}/api/v1/record/all`, config);
+        //create result type RecordDto[] from response.data
         let result = await response;
+        // define type of result
+        // let result: <RecordDto[]> = await response.data;
         console.log('all records in api', result);
-        return result;
+        // convert result.data to RecordDto
+        
+        return result.data;
     },
 
     async createUser(data: UserCreate) {
         const response = await axios
             .post(`${BASE_URL}/auth/user/create`, data)
-            // .catch((error) => {
-            //     console.log(error);
-            // });
+        // .catch((error) => {
+        //     console.log(error);
+        // });
         let result = await response;
         token = result.data.token;
         setToken(token);
@@ -148,16 +166,19 @@ const ApiService = {
         }
         const response = await axios
             .post(`${BASE_URL}/auth/user/login`, data, config)
-            // .catch((error) => {
-            //     console.log(error);
-            //     if (error.response.status === 401) {
-            //         console.log("unathorized user");
-            //         status = "unathorized";
-            //     }
-            // });
-        
+        // .catch((error) => {
+        //     console.log(error);
+        //     if (error.response.status === 401) {
+        //         console.log("unathorized user");
+        //         status = "unathorized";
+        //     }
+        // });
+
         let result = await response;
-        if(result) setAuthorization(true);
+        // if(result) setAuthorization(true);
+        token = result.data.token;
+        setToken(token);
+        setAuthorization(true);
         console.log(result, getAuthorization());
         return status;
     },
