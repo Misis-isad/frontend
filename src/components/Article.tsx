@@ -32,6 +32,9 @@ function Article() {
     //     date: '22.06.2025',
     //     html_data: ''
     // }
+    const HtmlComponent = ({ htmlString }: { htmlString: string }) => (
+        <div dangerouslySetInnerHTML={{ __html: htmlString }} />
+    );
 
 
     return (
@@ -40,7 +43,8 @@ function Article() {
                 loading ? <LoadingScreen />
                     : */}
                     <Box mt={10} ml={20} mr={20}>
-                        {dataArticle}
+                        {/* {dataArticle} */}
+                        <HtmlComponent htmlString={dataArticle} />
                         {/* <p>
                             В бухгалтерии важно правильно вести учет финансовых операций. Это помогает контролировать расходы и доходы компании. Бухгалтерия также занимается составлением отчетности и налоговых деклараций. Важно следить за соблюдением законодательства и правил бухгалтерского учета.
 
