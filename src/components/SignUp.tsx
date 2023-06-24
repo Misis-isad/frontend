@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ApiService from "../services/api";
-import { Paper, TextField, Typography, Box, Button } from "@mui/material";
+import { Paper, TextField, Typography, Box, Button, InputAdornment } from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 // import { isAuthorizedMain } from './Authorized.tsx'
 
 
@@ -16,6 +18,16 @@ const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [confirmPasswod, setConfirmPassword] = useState("");
 
+    const [showPassword, setShowPassword] = useState(true);
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const [showPassword2, setShowPassword2] = useState(true);
+    const handleTogglePasswordVisibility2 = () => {
+        setShowPassword2(!showPassword2);
+    };
+
     const [error1, setError1] = useState(false);
     const [helperText1, setHelperText1] = useState('');
     const [error2, setError2] = useState(false);
@@ -28,7 +40,7 @@ const SignUpForm = () => {
     // function getAuthorization() {
     //     return localStorage.getItem("isAuthorized");
     // }
-    
+
 
     // handle fio field changes
     const handleFioChange = (event: any) => {
@@ -143,7 +155,7 @@ const SignUpForm = () => {
 
         console.log(errorEmpty, error1, error2, error3, error4, email, password, fio)
 
-        if((!error1 && !error2 && !error3 && !error4 && !errorEmpty)) {
+        if ((!error1 && !error2 && !error3 && !error4 && !errorEmpty)) {
             //send data to server
             let result = ApiService.createUser({
                 email: email,
@@ -226,7 +238,7 @@ const SignUpForm = () => {
                     value={email}
                     onChange={handleEmailChange}
                 />
-                <TextField
+                <TextField type={showPassword ? 'text' : 'password'}
                     id="outlined-basic"
                     label="Пароль"
                     error={error3}
@@ -235,8 +247,15 @@ const SignUpForm = () => {
                     sx={{ mt: 3, width: "300px" }}
                     value={password}
                     onChange={handlePasswordChange}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {!showPassword ? <VisibilityOffIcon onClick={handleTogglePasswordVisibility} sx={{ color: '#1F1B4C' }} /> : <VisibilityIcon onClick={handleTogglePasswordVisibility} sx={{ color: '#1F1B4C' }} />}
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-                <TextField
+                <TextField type={showPassword2 ? 'text' : 'password'}
                     id="outlined-basic"
                     label="Подтверждение Пароля"
                     error={error4}
@@ -245,6 +264,13 @@ const SignUpForm = () => {
                     sx={{ mt: 3, width: "300px" }}
                     value={confirmPasswod}
                     onChange={handleConfirmPasswordChange}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {!showPassword2 ? <VisibilityOffIcon onClick={handleTogglePasswordVisibility2} sx={{ color: '#1F1B4C' }} /> : <VisibilityIcon onClick={handleTogglePasswordVisibility2} sx={{ color: '#1F1B4C' }} />}
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <Button
                     className="gradientButton"

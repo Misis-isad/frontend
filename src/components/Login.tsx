@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Paper, TextField, Typography, Box, Button } from "@mui/material";
+import { Paper, TextField, Typography, Box, Button, InputAdornment } from "@mui/material";
 import ApiService from "../services/api";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -10,7 +12,10 @@ const LoginForm = () => {
     const [helperText1, setHelperText1] = useState('');
     const [error2, setError2] = useState(false);
     const [helperText2, setHelperText2] = useState('');
-
+    const [showPassword, setShowPassword] = useState(true);
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
     // function getAuthorization() {
     //     return localStorage.getItem("isAuthorized");
     // }
@@ -131,8 +136,8 @@ const LoginForm = () => {
                     onChange={handleEmailChange}
                     sx={{ width: '300px' }}
                 />
-                <TextField
-                    id="outlined-basic"
+                <TextField type={showPassword ? 'text' : 'password'}
+                    id="outlined-basic" 
                     label="Пароль"
                     variant="outlined"
                     sx={{ mt: 3, width: '300px' }}
@@ -140,6 +145,13 @@ const LoginForm = () => {
                     helperText={helperText2}
                     value={password}
                     onChange={handlePasswordChange}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {!showPassword ? <VisibilityOffIcon onClick={handleTogglePasswordVisibility} sx={{ color: '#1F1B4C' }} /> : <VisibilityIcon onClick={handleTogglePasswordVisibility} sx={{ color: '#1F1B4C' }} />}
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <Button  className="gradientButton" onClick={handleSubmit} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 6, mb: 2, ml: 1, mr: 1 }}>Вход</Button>
             </Box>
