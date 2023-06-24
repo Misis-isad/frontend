@@ -4,7 +4,7 @@ import { BounceLoader, BarLoader } from "react-spinners";
 import { useState, useEffect } from 'react'
 import { Blob } from 'react-blob'
 import { CSSTransition } from "react-transition-group";
-import logo from "../assets/logo_owl.svg";
+import logo from "../assets/logo_with_text.svg";
 
 const texts = ["Осталось совсем чуть-чуть", "Скоро случится чудо", "Магия на подходе", 'Ты уже почти у цели!', "Все приходит вовремя для того, кто умеет ждать )"];
 
@@ -49,16 +49,16 @@ const LoadingScreen = () => {
         <>
             <Container className="gradientSection" fixed={true} style={{ maxWidth: "100%", height: "100%", padding: 0, position: 'relative' }}
                 sx={{
-                    backgroundImage: 'linear-gradient(184deg, #2470B5 2.31%, #3B31AE 33.85%, #550C64 63.54%, #5B0A57 96.35%)'
+                    backgroundImage: 'linear-gradient(184deg, #1F1B4C 9.74%, #0785CE 50.52%, #2091D3 77.08%, #2091D3 96.34%);'
                 }}>
-                <IconButton
+                <IconButton href="/"
                     size="large"
                     edge="start"
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2, ml: 1 }}
                 >
-                    <img width="40px" height="40px" src={logo} alt="logo" style={{ width: '120px', height: '77px' }} />
+                    <img width="40px" height="40px" src={logo} alt="logo" style={{ width: '239px', height: '77px' }}/>
                 </IconButton>
                 <Container sx={{
                     display: 'flex', justifyContent: 'center', alignItems: 'center',

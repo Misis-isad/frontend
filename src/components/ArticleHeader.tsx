@@ -3,7 +3,7 @@ import { Button, Typography, Box } from "@mui/material";
 import main from "../assets/main-img.svg";
 
 const article = {
-    title: 'Бухгалтерия за 5 минут',
+    title: 'Статья',
     video_link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
     date: '22.06.2025',
     html_data: ''

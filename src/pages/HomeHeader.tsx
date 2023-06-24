@@ -48,7 +48,7 @@ function Home() {
                             видео в уникальную статью c кратким содержанием и ключевыми моментами
                         </Typography>
                     </Box>
-                    <Button className="gradientButton gradientYellow" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 5 }} onClick={handleClick}>Начать</Button>
+                    <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 5 }} onClick={handleClick}>Начать</Button>
                 </Box> ) : (<VideoForm />) }
                 <Box>
                     <img src={main} alt="AI generating summary from video" width="500px" height="400px"></img>

@@ -1,14 +1,10 @@
 import { AppBar, Box, IconButton, Toolbar, Typography, Backdrop, Icon } from "@mui/material";
+import { useContext, createContext } from 'react'
 import SignUpForm from "./SignUp";
 import LoginForm from "./Login";
-// import '@fontsource/poppins/700.css';
-// import '@fontsource/poppins/400.css';
+import { isAuthorizedMain } from './Authorized.tsx'
 
-import logo from "../assets/logo_owl.svg";
-
-
-
-
+import logo from "../assets/logo_with_text.svg";
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,9 +15,27 @@ import MenuItem from '@mui/material/MenuItem';
 
 const pages = [['Главная', '/'], ['Статьи', '/allArticles']];
 const pages_auth = [['Главная', '/'], ['Статьи', '/allArticles'], ['Мои Видео', '/myVideos']];
-const isAuthorized = true;
 
 function ResponsiveAppBar() {
+    
+    function getAuthorization() {
+        return localStorage.getItem("isAuthorized");
+    }
+    
+    function clearAuthorized(){
+        return localStorage.removeItem('isAuthorized');
+    }
+    function clearToken(){
+        return localStorage.removeItem('token');
+    }
+
+    function clearAll(){
+        clearToken();
+        clearAuthorized();
+    }
+    let isAuthorized = false;
+  
+    // let isAuthorized = useContext(isAuthorizedMain);
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,6 +56,9 @@ function ResponsiveAppBar() {
         setOpen(true);
     };
     let currentPages = [];
+    if(getAuthorization()){
+        isAuthorized = true;
+    }
     { isAuthorized ? (currentPages = pages_auth) : (currentPages = pages) }
 
     return (
@@ -99,7 +116,7 @@ function ResponsiveAppBar() {
                             href="/"
                             sx={{ mr: 2 }}
                         >
-                            <img width="40px" height="40px" src={logo} alt="logo" style={{ width: '120px', height: '77px' }} />
+                            <img width="239px" height="40px" src={logo} alt="logo" style={{ width: '239px', height: '77px' }} />
                         </IconButton>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                             {
@@ -122,8 +139,8 @@ function ResponsiveAppBar() {
                                 open={open}
                                 onClick={handleClose}
                             >
-                                {buttonType === 'Login' && <LoginForm />}
-                                {buttonType === 'Signup' && <SignUpForm />}
+                                {!isAuthorized && buttonType === 'Login' && <LoginForm />}
+                                {!isAuthorized && buttonType === 'Signup' && <SignUpForm />}
                             </Backdrop>
                             { !isAuthorized ?
                                 (
@@ -133,12 +150,15 @@ function ResponsiveAppBar() {
                                     </>
                                 ) :
                                 (
+                                    <>
                                     <Avatar
                                         alt="Avatar"
-                                        src="/src/assets/man-ico.svg"
+                                        src="/src/assets/man-appbar.svg"
                                         sx={{ width: 56, height: 56 , 
                                         mr: 2, mt: 'auto', mb: 'auto', ml: 2}}
                                     />
+                                    <Button onClick={clearAll} href="/">Exit</Button>
+                                    </>
                                 )
                             }
                         </Box>

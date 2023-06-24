@@ -17,7 +17,7 @@ import Home from "./pages/Home"
 import LoadingScreen from "./components/Loading";
 
 function App() {
-    const [childParameter, setChildParameter] = useState('linear-gradient(184deg, #2470B5 2.31%, #3B31AE 33.85%, #550C64 63.54%, #5B0A57 96.35%)');
+    const [childParameter, setChildParameter] = useState('linear-gradient(184deg, #1F1B4C 9.74%, #0785CE 50.52%, #2091D3 77.08%, #2091D3 96.34%);');
     //'url(/src/assets/articleBg1.png)'
     function handleChildParameterChange(childParameter: string) {
       setChildParameter(childParameter);
@@ -32,7 +32,7 @@ function App() {
                 <CustomAppBar />
                 <Routes>
                     <Route path="/" element={<HomeHeader/>}/>
-                    <Route path="/article" element={<ArticleHeader onChildParameterChange={handleChildParameterChange}/>}/>
+                    <Route path="/article/:id" element={<ArticleHeader onChildParameterChange={handleChildParameterChange}/>}/>
                     <Route path="/myVideos" element={<VideosHeader/>}/>
                     <Route path="/allArticles" element={<AllArticlesHeader/>}/>
                 </Routes>
@@ -53,7 +53,7 @@ function App() {
             <Container className="whiteSection" style={{ maxWidth: "100%", backgroundColor: "white"}}>
                 <Routes>
                     <Route path="/" element={<HomeContent/>}/>
-                    <Route path="/article" element={<Article />}/>
+                    <Route path="/article/:id" element={<Article/>}/>
                     <Route path="/myVideos" element={<VideosContent/>}/>
                 </Routes>
             </Container>

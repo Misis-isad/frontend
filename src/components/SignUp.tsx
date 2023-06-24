@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ApiService from "../services/api";
 import { Paper, TextField, Typography, Box, Button } from "@mui/material";
+import { isAuthorizedMain } from './Authorized.tsx'
+
 
 const SignUpForm = () => {
+
+    // const [isAuthorized, setAuthorized ] = useContext(isAuthorizedMain);
+    // const { isAuthorized, setAuthorized } = useContext(isAuthorizedMain);
+    // let isAuthorized = useContext(isAuthorizedMain);
+    const [isGetResponse, setisGetResponse] = useState(false);
+
     const [email, setEmail] = useState("");
     const [fio, setFio] = useState("");
     const [password, setPassword] = useState("");
@@ -17,6 +25,10 @@ const SignUpForm = () => {
     const [error4, setError4] = useState(false);
     const [helperText4, setHelperText4] = useState('');
 
+    function getAuthorization() {
+        return localStorage.getItem("isAuthorized");
+    }
+    
 
     // handle fio field changes
     const handleFioChange = (event: any) => {
@@ -71,7 +83,6 @@ const SignUpForm = () => {
             setError4(false);
             setHelperText4('');
         }
-
         setConfirmPassword(event.target.value);
     };
 
@@ -134,12 +145,14 @@ const SignUpForm = () => {
 
         if((!error1 && !error2 && !error3 && !error4 && !errorEmpty)) {
             //send data to server
-            // let result = ApiService.createUser({
-            //     email: email,
-            //     password: password,
-            //     fio: fio,
-            // });
-            // console.log(result);
+            let result = ApiService.createUser({
+                email: email,
+                password: password,
+                fio: fio,
+            });
+            console.log(result);
+            // isAuthorized = true;
+            // setAuthorized(true);
             console.log('hereeeee')
         }
     };
@@ -150,7 +163,7 @@ const SignUpForm = () => {
             elevation={6}
             style={{
                 width: "500px",
-                height: "560px",
+                minHeight: "560px",
                 borderRadius: "30px",
             }}
         >
@@ -164,7 +177,7 @@ const SignUpForm = () => {
                     fontFamily: "PT Sans Caption",
                     fontWeight: 700,
                     fontSize: "24px",
-                    color: "#550C64",
+                    color: "#1F1B4C",
                     textDecoration: "none",
                 }}
             >
@@ -181,6 +194,7 @@ const SignUpForm = () => {
                     fontWeight: 400,
                     fontSize: "16px",
                     textDecoration: "none",
+                    color: '1F1B4C'
                 }}
             >
                 Введите свои данные для регистрации на сайте
@@ -198,7 +212,6 @@ const SignUpForm = () => {
                     error={error1}
                     helperText={helperText1}
                     variant="outlined"
-                    color="secondary"
                     sx={{ width: "300px" }}
                     value={fio}
                     onChange={handleFioChange}
@@ -209,7 +222,6 @@ const SignUpForm = () => {
                     error={error2}
                     helperText={helperText2}
                     variant="outlined"
-                    color="secondary"
                     sx={{ mt: 3, width: "300px" }}
                     value={email}
                     onChange={handleEmailChange}
@@ -221,7 +233,6 @@ const SignUpForm = () => {
                     helperText={helperText3}
                     variant="outlined"
                     sx={{ mt: 3, width: "300px" }}
-                    color="secondary"
                     value={password}
                     onChange={handlePasswordChange}
                 />
@@ -232,14 +243,13 @@ const SignUpForm = () => {
                     helperText={helperText4}
                     variant="outlined"
                     sx={{ mt: 3, width: "300px" }}
-                    color="secondary"
                     value={confirmPasswod}
                     onChange={handleConfirmPasswordChange}
                 />
                 <Button
                     className="gradientButton"
                     style={{ borderRadius: "20px", color: "white" }}
-                    sx={{ mt: 6, mb: "auto", ml: 1, mr: 1 }}
+                    sx={{ mt: 6, mb: 2, ml: 1, mr: 1 }}
                     onClick={handleSubmit}
                 >
                     Регистрация

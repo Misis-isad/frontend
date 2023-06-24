@@ -12,11 +12,13 @@ interface Props {
     link: string;
     title: string;
     status: string;
+    id: number;
 }
 
 export default function VideoCard(props: Props) {
 
-    const { link, title, status } = props;
+    const { link, title, status, id } = props;
+    let source  = `/article/${id}`;
     return (
         <Card sx={{ maxWidth: 700, boxShadow: '0px 0px 10px 5px rgba(0,0,0,0.3)', borderRadius: '15px', mt: 2, mb: 10, ml: 'auto', mr: 'auto' }} >
             <CardMedia
@@ -72,7 +74,7 @@ export default function VideoCard(props: Props) {
                 </Typography>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-                <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 2, ml: 1, mr: 1 }}>Подробнее</Button>
+                <Button className="gradientButton" href={source} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 2, ml: 1, mr: 1 }}>Подробнее</Button>
             </CardActions>
         </Card>
     );

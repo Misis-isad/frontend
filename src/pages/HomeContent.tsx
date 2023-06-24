@@ -21,11 +21,11 @@ function HomeContent() {
                             fontWeight: 700,
                             fontSize: 50,
                             letterSpacing: '.3rem',
-                            color: '#550C64',
+                            color: '#1F1B4C',
                             textDecoration: 'none',
                         }}
                     >
-                        ПРОФБУХ
+                        БухЭксперт8
                     </Typography>
                     <Box>
                         <Typography variant="body1"
@@ -39,10 +39,17 @@ function HomeContent() {
                                 mt: 2
                             }}
                         >
-                            Компания ПРОФБУХ с 2011 года занимается методологической разработкой обучающих и консультирующих онлайн-систем по ведению учёта в программах 1С. За 12 лет работы, обучение по онлайн-курсам прошло 10 000+ бухгалтеров из 6 000+ компаний.
+                            БухЭксперт8 это:<br></br>
+Регулярные онлайн-семинары<br></br>
+Звёздные спикеры разбирают все новшества раньше других<br></br>
+Ответы на ваши вопросы по 1С<br></br>
+Отвечают эксперты практики<br></br>
+Энциклопедия 1С<br></br>
+Более 3000 публикаций по 1С<br></br>
+                            {/* Компания ПРОФБУХ с 2011 года занимается методологической разработкой обучающих и консультирующих онлайн-систем по ведению учёта в программах 1С. За 12 лет работы, обучение по онлайн-курсам прошло 10 000+ бухгалтеров из 6 000+ компаний. */}
                         </Typography>
                     </Box>
-                    <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white', lineHeight: 'inherit', width: '176px' }} sx={{ mt: 5 }} href="https://profbuh8.ru" target="_blank">На Сайт Компании</Button>
+                    <Button className="gradientButton" style={{ borderRadius: '20px', color: 'white', lineHeight: 'inherit', width: '176px' }} sx={{ mt: 5 }} href="https://buhexpert8.ru" target="_blank">На Сайт Компании</Button>
                 </Box>
             </Box>
         </>

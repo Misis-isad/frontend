@@ -11,6 +11,9 @@ const LoginForm = () => {
     const [error2, setError2] = useState(false);
     const [helperText2, setHelperText2] = useState('');
 
+    function getAuthorization() {
+        return localStorage.getItem("isAuthorized");
+    }
 
     //handle email field changes
     const handleEmailChange = (event: any) => {
@@ -72,11 +75,12 @@ const LoginForm = () => {
     
             if(!error1 && !error2 && !errorEmpty){
                 //send data to server
-                // let result = ApiService.loginUser({
-                //     email: email,
-                //     password: password,
-                // });
-                // console.log(result);
+                let result = ApiService.loginUser({
+                    email: email,
+                    password: password,
+                });
+                console.log(result);
+                
                 console.log('hereeeeeeeeeeeLogin');
             }
         };
@@ -84,7 +88,7 @@ const LoginForm = () => {
     return (
         <Paper onClick={(e) => e.stopPropagation()} elevation={6}
             style={{
-                width: '500px', height: '400px', borderRadius: '30px'
+                width: '500px', minHeight: '400px', borderRadius: '30px'
             }}>
             <Typography variant="h2"
                 sx={{
@@ -95,7 +99,7 @@ const LoginForm = () => {
                     fontFamily: 'PT Sans Caption',
                     fontWeight: 700,
                     fontSize: '24px',
-                    color: '#550C64',
+                    color: '#1F1B4C',
                     textDecoration: 'none',
                 }}
             >
@@ -111,6 +115,7 @@ const LoginForm = () => {
                     fontWeight: 400,
                     fontSize: '16px',
                     textDecoration: 'none',
+                    color: '#1F1B4C'
                 }}
             >
                 Введите логин и пароль для авторизации на сайте
@@ -120,7 +125,6 @@ const LoginForm = () => {
                     id="outlined-basic"
                     label="Email"
                     variant="outlined"
-                    color="secondary"
                     error={error1}
                     helperText={helperText1}
                     value={email}
@@ -132,13 +136,12 @@ const LoginForm = () => {
                     label="Пароль"
                     variant="outlined"
                     sx={{ mt: 3, width: '300px' }}
-                    color="secondary"
                     error={error2}
                     helperText={helperText2}
                     value={password}
                     onChange={handlePasswordChange}
                 />
-                <Button className="gradientButton" onClick={handleSubmit} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 6, mb: 'auto', ml: 1, mr: 1 }}>Вход</Button>
+                <Button  className="gradientButton" onClick={handleSubmit} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 6, mb: 2, ml: 1, mr: 1 }}>Вход</Button>
             </Box>
         </Paper>
     )
