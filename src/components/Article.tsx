@@ -1,12 +1,10 @@
-import { Button, Typography, Box, Paper } from "@mui/material";
-import { useEffect, useState, useRef } from "react";
-import imgLink from "../assets/whitesection-img.svg";
+import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
 import ApiService from "../services/api";
-import LoadingScreen from "./Loading";
 import { useParams } from "react-router-dom";
 
 function Article() {
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
     const [dataArticle, setDataArticle] = useState("")
     let { id } = useParams();
 
@@ -28,19 +26,19 @@ function Article() {
     //     fetchData();
     // }, []);
 
-    const article = {
-        title: 'Бухгалтерия за 5 минут',
-        video_link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
-        date: '22.06.2025',
-        html_data: ''
-    }
+    // const article = {
+    //     title: 'Бухгалтерия за 5 минут',
+    //     video_link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
+    //     date: '22.06.2025',
+    //     html_data: ''
+    // }
 
 
     return (
         <>
-            {
+            {/* {
                 loading ? <LoadingScreen />
-                    :
+                    : */}
                     <Box mt={10} ml={20} mr={20}>
                         {dataArticle}
                         {/* <p>
@@ -89,7 +87,7 @@ function Article() {
                                 width: '380px', height: '54px', borderRadius: '15px'
                             }}>Перейти на видео</Button> */}
                     </Box>
-            }
+            {/* } */}
 
         </>
     );

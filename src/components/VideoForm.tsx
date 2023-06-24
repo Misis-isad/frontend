@@ -1,12 +1,10 @@
-import { Paper, TextField, Typography, Box, Button, InputAdornment, Backdrop, Slider } from "@mui/material";
+import { Paper, TextField, Typography, Box, Button, InputAdornment,Slider } from "@mui/material";
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import ApiService from "../services/api";
 import LoadingScreen from "./Loading";
 import DownloadIcon from '@mui/icons-material/Download';
 import QueryBuilder from '@mui/icons-material/QueryBuilder';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import Article from "./Article";
 import { useNavigate } from "react-router-dom";
 
 
@@ -96,7 +94,7 @@ const VideoForm = () => {
 
 
     // handle submit
-    async function handleSubmit(event: any) {
+    async function handleSubmit() {
         let errorEmpty = false;
         // check if link valid
         if (!link) {

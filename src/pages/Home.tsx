@@ -1,4 +1,3 @@
-import React from 'react'
 import HomeHeader from "./HomeHeader";
 import HomeContent from "./HomeContent";
 import { Box } from '@mui/material'

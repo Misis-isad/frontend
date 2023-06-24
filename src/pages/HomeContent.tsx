@@ -1,5 +1,4 @@
 import { Button, Typography, Box } from "@mui/material";
-import { useEffect } from "react";
 import imgLink from "../assets/whitesection-img.svg";
 
 

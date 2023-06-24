@@ -26,13 +26,13 @@ interface UserLogin {
 
 let token;
 // localStorage.getItem("token");
-interface AxiosAuthenticateHeader {
-    headers: TokenAuthenticated;
-};
+// interface AxiosAuthenticateHeader {
+//     headers: TokenAuthenticated;
+// };
 
-interface TokenAuthenticated {
-    Authorization: string;
-}
+// interface TokenAuthenticated {
+//     Authorization: string;
+// }
 
 interface AllRecords{
     limit: number;
@@ -71,19 +71,19 @@ function setAuthorization(isAuthorized: boolean) {
 //   bodyParameters,
 //   config
 // ).then(console.log).catch(console.log);
-function handleError(event: any){
-    if (event.response.status === 401) {
-        console.log("unathorized user");
-        setAuthorization(false);
-    }
-}
+// function handleError(event: any){
+//     if (event.response.status === 401) {
+//         console.log("unathorized user");
+//         setAuthorization(false);
+//     }
+// }
 
 
 const BASE_URL = "http://larek.itatmisis.ru:9999";
 
 const ApiService = {
     async createRecord(data: VideoFormData) {
-        let status = "video added";
+        // let status = "video added";
         let config = {
             headers: {
                 Authorization: `Bearer ${getToken()}`

@@ -11,9 +11,9 @@ const LoginForm = () => {
     const [error2, setError2] = useState(false);
     const [helperText2, setHelperText2] = useState('');
 
-    function getAuthorization() {
-        return localStorage.getItem("isAuthorized");
-    }
+    // function getAuthorization() {
+    //     return localStorage.getItem("isAuthorized");
+    // }
 
     //handle email field changes
     const handleEmailChange = (event: any) => {

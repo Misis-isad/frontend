@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Button, Typography, Box } from "@mui/material";
-import { useEffect } from "react";
 import main from "../assets/main-img.svg";
 
 import VideoForm from "../components/VideoForm";

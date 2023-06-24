@@ -5,16 +5,12 @@ import ArticleHeader from "./components/ArticleHeader";
 import VideosHeader from "./pages/VideosHeader";
 import AllArticlesHeader from "./pages/AllArticlesHeader";
 import VideosContent from "./pages/VideosContent";
-import VideoCard from "./components/VideoCard";
 import Wave from 'react-wavify'
 import { useState }from 'react'
 import "./App.css";
 import CustomAppBar from "./components/AppBar";
 import { Container } from "@mui/material";
-import { Blob } from "react-blob"
 import { Routes, Route } from 'react-router-dom'
-import Home from "./pages/Home"
-import LoadingScreen from "./components/Loading";
 
 function App() {
     const [childParameter, setChildParameter] = useState('linear-gradient(184deg, #1F1B4C 9.74%, #0785CE 50.52%, #2091D3 77.08%, #2091D3 96.34%);');

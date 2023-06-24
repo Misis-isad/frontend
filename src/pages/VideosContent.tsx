@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { useState, useEffect } from "react";
 import VideoCard from "../components/VideoCard";
-import { Pagination, Box } from "@mui/material";
+import { Pagination} from "@mui/material";
 import ApiService from "../services/api";
 
 
@@ -18,23 +18,7 @@ allVideos[7] = {
     status: "Супер интересная статья",
     id: 7
 }
-let videos = [
-    {
-        imgLink: "/src/assets/logo.jpeg",
-        title: "Бухгалтерия за 5 минут",
-        description: "Супер интересная статья"
-    },
-    {
-        imgLink: "/src/assets/logo.jpeg",
-        title: "Бухгалтерия за 5 минут",
-        description: "Супер интересная статья"
-    },
-    {
-        imgLink: "/src/assets/logo.jpeg",
-        title: "Бухгалтерия за 5 минут",
-        description: "Супер интересная статья"
-    }
-]
+
 
 
 const videosPerPage = 3;
@@ -48,6 +32,7 @@ function VideoContent() {
         value: number
     ) => {
         setPage(value);
+        console.log(event)
     };
 
     useEffect(() => {

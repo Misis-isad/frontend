@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import ApiService from "../services/api";
 import { Paper, TextField, Typography, Box, Button } from "@mui/material";
-import { isAuthorizedMain } from './Authorized.tsx'
+// import { isAuthorizedMain } from './Authorized.tsx'
 
 
 const SignUpForm = () => {
@@ -9,7 +9,7 @@ const SignUpForm = () => {
     // const [isAuthorized, setAuthorized ] = useContext(isAuthorizedMain);
     // const { isAuthorized, setAuthorized } = useContext(isAuthorizedMain);
     // let isAuthorized = useContext(isAuthorizedMain);
-    const [isGetResponse, setisGetResponse] = useState(false);
+    // const [isGetResponse, setisGetResponse] = useState(false);
 
     const [email, setEmail] = useState("");
     const [fio, setFio] = useState("");
@@ -25,9 +25,9 @@ const SignUpForm = () => {
     const [error4, setError4] = useState(false);
     const [helperText4, setHelperText4] = useState('');
 
-    function getAuthorization() {
-        return localStorage.getItem("isAuthorized");
-    }
+    // function getAuthorization() {
+    //     return localStorage.getItem("isAuthorized");
+    // }
     
 
     // handle fio field changes

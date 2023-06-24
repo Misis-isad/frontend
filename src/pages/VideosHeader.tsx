@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Typography, Box } from "@mui/material";
 import main from "../assets/myVideos-img.svg";
 

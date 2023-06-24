@@ -1,5 +1,5 @@
 import { Container, Typography, Box, IconButton, Backdrop } from '@mui/material'
-import { BounceLoader, BarLoader } from "react-spinners";
+import { BarLoader } from "react-spinners";
 // import DrawBlob, { BlobType } from 'node_modules';
 import { useState, useEffect } from 'react'
 import { Blob } from 'react-blob'

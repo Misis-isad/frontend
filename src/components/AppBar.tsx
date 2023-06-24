@@ -1,8 +1,6 @@
-import { AppBar, Box, IconButton, Toolbar, Typography, Backdrop, Icon } from "@mui/material";
-import { useContext, createContext } from 'react'
+import { AppBar, Box, IconButton, Toolbar, Typography, Backdrop } from "@mui/material";
 import SignUpForm from "./SignUp";
 import LoginForm from "./Login";
-import { isAuthorizedMain } from './Authorized.tsx'
 
 import logo from "../assets/logo_with_text.svg";
 import * as React from 'react';
@@ -56,7 +54,7 @@ function ResponsiveAppBar() {
         setOpen(true);
     };
     let currentPages = [];
-    if(getAuthorization()){
+    if(getAuthorization() === 'true'){
         isAuthorized = true;
     }
     { isAuthorized ? (currentPages = pages_auth) : (currentPages = pages) }
