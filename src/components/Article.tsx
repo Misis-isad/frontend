@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import ApiService from "../services/api";
 import { useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { saveAs } from 'file-saver';
 
-
+// quill.clipboard.dangerouslyPasteHTML(5, '&nbsp;<b>World</b>');
 function Article() {
     const [content, setContent] = useState('');
     const [showEditor, setShowEditor] = useState(false);
@@ -29,7 +29,7 @@ function Article() {
     const [dataArticleEdit, setDataArticleEdit] = useState('')
     let { id } = useParams();
 
-    function parseDate(dateString:string) {
+    function parseDate(dateString: string) {
         const date = new Date(Date.parse(dateString));
         return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
     }
@@ -43,7 +43,6 @@ function Article() {
                 setDataArticleEdit(data.data.body);
                 setDateString(data.data.created_at);
                 setArticleId(data.data.id);
-                console.log(dateString);
             })
             if (ArticleId !== 0) {
                 let responseRecord = ApiService.getRecordByArticleId(ArticleId)
@@ -115,25 +114,45 @@ function Article() {
     const prop = 'propname';
     myObj[prop] = 'string';
 
+
+    const modules = {
+        toolbar: [
+            [{ font: [] }],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: ['black'] }, { background: [] }],
+            [{ script: "sub" }, { script: "super" }],
+            ["blockquote", "code-block"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image", "video"],
+            ["clean"],
+        ]
+    };
+
     //React-Quill
 
     function handleChange(value: string) {
         setContent(value);
     }
+
+    function removeSubstring(str: string): string {
+        return str.replace(/<p><br><\/p><p><br><\/p>|<p><br><\/p>/g, '');
+    }
+
     function toggleEditor() {
         if (showEditor) {
-            setDataArticleEdit(content)
+            setDataArticleEdit(removeSubstring(content));
         }
         setShowComponent(!showComponent);
         setShowEditor(!showEditor);
     }
     function getContentToSave() {
-        handleSave(content);
+        handleSave(removeSubstring(content));
         // console.log(content);
     }
     //React-Quill
 
-    
+
     //Dialog
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -167,7 +186,7 @@ function Article() {
                 {showComponent && <HtmlComponent htmlString={dataArticleEdit} />}
 
                 {showEditor && (
-                    <ReactQuill value={content} onChange={handleChange} />
+                    <ReactQuill modules={modules} value={content} onChange={handleChange} />
                 )}
                 <Box className="Button-Container" width="700px" mt={4}
                     sx={{ display: 'grid', gridTemplateColumns: "repeat(4, 1fr)", gridGap: 4, alignItems: 'center' }}
@@ -222,7 +241,7 @@ function Article() {
                             fontSize: 16,
                             color: 'black',
                             textDecoration: 'none',
-                            
+
                         }}
                     >
                         дата создания: {parseDate(dateString)}

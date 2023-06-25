@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Paper, TextField, Typography, Box, Button, InputAdornment } from "@mui/material";
+import { Paper, TextField, Typography, Box, Button, InputAdornment, Alert } from "@mui/material";
 import ApiService from "../services/api";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const LoginForm = () => {
+    const [isAuthorized, setAuthorized] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,9 +17,6 @@ const LoginForm = () => {
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    // function getAuthorization() {
-    //     return localStorage.getItem("isAuthorized");
-    // }
 
     //handle email field changes
     const handleEmailChange = (event: any) => {
@@ -50,45 +48,55 @@ const LoginForm = () => {
         setPassword(event.target.value);
     };
 
-        // handle submit
-        const handleSubmit = (event: any) => {
-            let errorEmpty = false;
-            event.preventDefault();
-    
-            //check if password valid
-            if (!password) {
-                setError2(true);
-                errorEmpty = true;
-                setHelperText2('Введите пароль');
-            }
-            else {
-                setError2(false);
-                errorEmpty = false;
-                setHelperText2('');
-            }
-    
-            // check if email is valid and not empty string
-            if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-                setError1(false);
-                errorEmpty = false;
-                setHelperText1('');
-            } else {
-                setError1(true);
-                errorEmpty = true;
-                setHelperText1('Введите email');
-            }
-    
-            if(!error1 && !error2 && !errorEmpty){
-                //send data to server
-                let result = ApiService.loginUser({
-                    email: email,
-                    password: password,
-                });
-                console.log(result);
-                
-                console.log('hereeeeeeeeeeeLogin');
-            }
-        };
+    // handle submit
+    const handleSubmit = (event: any) => {
+        let errorEmpty = false;
+        event.preventDefault();
+
+        //check if password valid
+        if (!password) {
+            setError2(true);
+            errorEmpty = true;
+            setHelperText2('Введите пароль');
+        }
+        else {
+            setError2(false);
+            errorEmpty = false;
+            setHelperText2('');
+        }
+
+        // check if email is valid and not empty string
+        if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            setError1(false);
+            errorEmpty = false;
+            setHelperText1('');
+        } else {
+            setError1(true);
+            errorEmpty = true;
+            setHelperText1('Введите email');
+        }
+
+        if (!error1 && !error2 && !errorEmpty) {
+            //send data to server
+            let result = ApiService.loginUser({
+                email: email,
+                password: password,
+            });
+
+            //handle success
+            result.then(response => {
+                console.log(response);
+                setAuthorized(true);
+            });
+
+            //handle error 401
+            result.catch(error => {
+                if (error.response.status === 401) {
+                    alert('Ошибка ввода данных, проверьте данные или пройдите регистрацию');
+                }
+            });
+        }
+    };
 
     return (
         <Paper onClick={(e) => e.stopPropagation()} elevation={6}
@@ -137,7 +145,7 @@ const LoginForm = () => {
                     sx={{ width: '300px' }}
                 />
                 <TextField type={showPassword ? 'text' : 'password'}
-                    id="outlined-basic" 
+                    id="outlined-basic"
                     label="Пароль"
                     variant="outlined"
                     sx={{ mt: 3, width: '300px' }}
@@ -153,7 +161,26 @@ const LoginForm = () => {
                         ),
                     }}
                 />
-                <Button  className="gradientButton" onClick={handleSubmit} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 6, mb: 2, ml: 1, mr: 1 }}>Вход</Button>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        textAlign: "center",
+                        mr: 2,
+                        mt: 2,
+                        flexGrow: 1,
+                        fontFamily: "Noto Sans",
+                        fontWeight: 300,
+                        fontSize: "14px",
+                        textDecoration: "none",
+                        color: '1F1B4C'
+                    }}
+                >
+                    Для закрытия формы,<br></br> нажмите вне ее области
+                </Typography>
+                <Button className="gradientButton" disabled={Boolean(isAuthorized)}  onClick={handleSubmit} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 2, mb: 2, ml: 1, mr: 1 }}>Вход</Button>
+                {isAuthorized && <Alert variant="outlined" severity="success" sx={{mb:2}}>
+                    Вы успешно зашли!
+                </Alert>}
             </Box>
         </Paper>
     )

@@ -5,7 +5,6 @@ import { Pagination } from "@mui/material";
 import ApiService from "../services/api";
 // import RecordDto from "../services/api";
 
-
 let obj = {
     link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
     title: "Бухгалтерия",

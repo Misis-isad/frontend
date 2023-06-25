@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ApiService from "../services/api";
-import { Paper, TextField, Typography, Box, Button, InputAdornment } from "@mui/material";
+import { Paper, TextField, Typography, Box, Button, InputAdornment, Alert } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-// import { isAuthorizedMain } from './Authorized.tsx'
 
 const SignUpForm = () => {
 
-    // const [isAuthorized, setAuthorized ] = useContext(isAuthorizedMain);
-    // const { isAuthorized, setAuthorized } = useContext(isAuthorizedMain);
-    // let isAuthorized = useContext(isAuthorizedMain);
-    // const [isGetResponse, setisGetResponse] = useState(false);
+    const [isAuthorized, setAuthorized] = useState(false);
+
+    useEffect(() => {
+      }, [isAuthorized]);
 
     const [email, setEmail] = useState("");
     const [fio, setFio] = useState("");
@@ -35,11 +34,6 @@ const SignUpForm = () => {
     const [helperText3, setHelperText3] = useState('');
     const [error4, setError4] = useState(false);
     const [helperText4, setHelperText4] = useState('');
-
-    // function getAuthorization() {
-    //     return localStorage.getItem("isAuthorized");
-    // }
-
 
     // handle fio field changes
     const handleFioChange = (event: any) => {
@@ -161,10 +155,19 @@ const SignUpForm = () => {
                 password: password,
                 fio: fio,
             });
-            console.log(result);
-            // isAuthorized = true;
-            // setAuthorized(true);
-            console.log('hereeeee')
+
+            //handle success
+            result.then(response => {
+                console.log(response)
+                setAuthorized(true);
+            });
+
+            //handle error 400
+            result.catch(error => {
+                if (error.response.status === 400) {
+                    alert('Такой email уже существует');
+                }
+            });
         }
     };
 
@@ -271,14 +274,33 @@ const SignUpForm = () => {
                         ),
                     }}
                 />
-                <Button
-                    className="gradientButton"
+                <Typography
+                    variant="body1"
+                    sx={{
+                        textAlign: "center",
+                        mr: 2,
+                        mt: 2,
+                        flexGrow: 1,
+                        fontFamily: "Noto Sans",
+                        fontWeight: 300,
+                        fontSize: "14px",
+                        textDecoration: "none",
+                        color: '1F1B4C'
+                    }}
+                >
+                    Для закрытия формы,<br></br> нажмите вне ее области
+                </Typography>
+                <Button disabled={Boolean(isAuthorized)}
+                    className="gradientButton RegisterButton"
                     style={{ borderRadius: "20px", color: "white" }}
-                    sx={{ mt: 6, mb: 2, ml: 1, mr: 1 }}
+                    sx={{ mt: 2, mb: 2, ml: 1, mr: 1 }}
                     onClick={handleSubmit}
                 >
                     Регистрация
                 </Button>
+                {isAuthorized && <Alert variant="outlined" severity="success" sx={{mb:2}}>
+                    Вы успешно зарегистрировались!
+                </Alert>}
             </Box>
         </Paper>
     );
