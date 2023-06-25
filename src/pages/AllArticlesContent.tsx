@@ -23,7 +23,7 @@ function AllArticlesContent() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data: any = await ApiService.getPublishedRecords({ limit: 10, offset: 0 });
+            const data: any = await ApiService.getPublishedRecords({ limit: 100, offset: 0 });
             setDataRecords(data);
         };
         fetchData();

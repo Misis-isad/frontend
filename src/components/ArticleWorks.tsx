@@ -13,6 +13,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { saveAs } from 'file-saver';
 
+// quill.clipboard.dangerouslyPasteHTML(5, '&nbsp;<b>World</b>');
 function Article() {
     const [content, setContent] = useState('');
     const [showEditor, setShowEditor] = useState(false);
@@ -24,7 +25,7 @@ function Article() {
     // const [linkVideo, setLinkVideo] = useState('');
 
     //get data article from server
-    const [dataArticleHead, setDataArticleHead] = useState('')
+    // const [dataArticle, setDataArticle] = useState('')
     const [dataArticleEdit, setDataArticleEdit] = useState('')
     let { id } = useParams();
 
@@ -33,25 +34,13 @@ function Article() {
         return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
     }
 
-    function extractHeadTags(input: string): string {
-        const startTag = '<head>';
-        const endTag = '</head>';
-        const startIndex = input.indexOf(startTag);
-        const endIndex = input.indexOf(endTag) + endTag.length;
-        if (startIndex === -1 || endIndex === -1) {
-            return '';
-        }
-        return input.substring(startIndex, endIndex);
-    }
-
     useEffect(() => {
         if (id) {
             let responseArticle = ApiService.getArticle(parseInt(id))
             responseArticle.then((data) => {
+                // setDataArticle(data.data.body);
                 setContent(data.data.body);
                 setDataArticleEdit(data.data.body);
-                setDataArticleHead(extractHeadTags(data.data.body));
-                console.log(data.data.body);
                 setDateString(data.data.created_at);
                 setArticleId(data.data.id);
             })
@@ -64,9 +53,6 @@ function Article() {
             }
         }
     }, []);
-
-
-
 
     // const [dataArticle, setDataArticle] = useState('<div><p>Paragraph</p><img src="image.png" alt="Image" /><h1>Heading</h1></div>')
     // let { id } = useParams();
@@ -116,10 +102,7 @@ function Article() {
     }
 
     const handleSave = (stringHtml: string) => {
-        let stringToSave = ''
-        if (dataArticleHead != '') stringToSave = dataArticleHead + stringHtml;
-        else stringToSave = stringHtml;
-        const file = new Blob([stringToSave], { type: 'text/html' });
+        const file = new Blob([stringHtml], { type: 'text/html' });
         saveAs(file, 'index.html');
     };
 

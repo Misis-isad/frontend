@@ -40,6 +40,7 @@ h1 {
     font-weight: 700;
     font-size: 50px;
     letter-spacing: .3rem;
+    margin: auto;
 }
 
 h2 {
@@ -47,6 +48,7 @@ h2 {
     font-weight: 700;
     font-size: 24px;
     color: white;
+    margin: auto;
 }
 
 .videoLink {
@@ -71,6 +73,11 @@ h2 {
     text-decoration: none;
     margin: 1em 0;
 }
+
+/* .ArticleContainer img {
+    display: block;
+    margin: auto;
+} */
 
 p {
     font-family: 'Noto Sans';
