@@ -1,4 +1,5 @@
 import { AppBar, Box, IconButton, Toolbar, Typography, Backdrop } from "@mui/material";
+import { Link } from 'react-router-dom';
 import SignUpForm from "./SignUp";
 import LoginForm from "./Login";
 
@@ -11,28 +12,28 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = [['Главная', '/'], ['Статьи', '/allArticles']];
+const pages = [['Главная', '/']];
 const pages_auth = [['Главная', '/'], ['Статьи', '/allArticles'], ['Мои Видео', '/myVideos']];
 
 function ResponsiveAppBar() {
-    
+
     function getAuthorization() {
         return localStorage.getItem("isAuthorized");
     }
-    
-    function clearAuthorized(){
+
+    function clearAuthorized() {
         return localStorage.removeItem('isAuthorized');
     }
-    function clearToken(){
+    function clearToken() {
         return localStorage.removeItem('token');
     }
 
-    function clearAll(){
+    function clearAll() {
         clearToken();
         clearAuthorized();
     }
     let isAuthorized = false;
-  
+
     // let isAuthorized = useContext(isAuthorizedMain);
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -54,7 +55,7 @@ function ResponsiveAppBar() {
         setOpen(true);
     };
     let currentPages = [];
-    if(getAuthorization() === 'true'){
+    if (getAuthorization() === 'true') {
         isAuthorized = true;
     }
     { isAuthorized ? (currentPages = pages_auth) : (currentPages = pages) }
@@ -119,17 +120,18 @@ function ResponsiveAppBar() {
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                             {
                                 currentPages.map((page) => (
-                                    <Button
-                                        key={page[0]}
-                                        href={page[1]}
-                                        onClick={handleCloseNavMenu}
-                                        sx={{
-                                            my: 2, color: 'white', display: 'block', fontFamily: 'PT Sans Caption',
-                                            fontWeight: 700,
-                                        }}
-                                    >
-                                        {page[0]}
-                                    </Button>
+                                    <Link to={page[1]}>
+                                        <Button
+                                            key={page[0]}
+                                            onClick={handleCloseNavMenu}
+                                            sx={{
+                                                my: 2, color: 'white', display: 'block', fontFamily: 'PT Sans Caption',
+                                                fontWeight: 700,
+                                            }}
+                                        >
+                                            {page[0]}
+                                        </Button>
+                                    </Link>
                                 ))
                             }
                             <Backdrop
@@ -140,7 +142,7 @@ function ResponsiveAppBar() {
                                 {!isAuthorized && buttonType === 'Login' && <LoginForm />}
                                 {!isAuthorized && buttonType === 'Signup' && <SignUpForm />}
                             </Backdrop>
-                            { !isAuthorized ?
+                            {!isAuthorized ?
                                 (
                                     <>
                                         <Button className="gradientButton" onClick={() => handleOpen('Signup')} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 'auto', ml: 1, mr: 1 }}>Регистрация</Button>
@@ -149,13 +151,15 @@ function ResponsiveAppBar() {
                                 ) :
                                 (
                                     <>
-                                    <Avatar
-                                        alt="Avatar"
-                                        src="/src/assets/man-appbar.svg"
-                                        sx={{ width: 56, height: 56 , 
-                                        mr: 2, mt: 'auto', mb: 'auto', ml: 2}}
-                                    />
-                                    <Button onClick={clearAll} href="/" style={{color: 'white'}}>Выход</Button>
+                                        <Avatar
+                                            alt="Avatar"
+                                            src="/src/assets/man-appbar.svg"
+                                            sx={{
+                                                width: 56, height: 56,
+                                                mr: 2, mt: 'auto', mb: 'auto', ml: 2
+                                            }}
+                                        />
+                                        <Button onClick={clearAll} href="/" style={{ color: 'white' }}>Выход</Button>
                                     </>
                                 )
                             }

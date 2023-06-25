@@ -5,7 +5,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 // import { isAuthorizedMain } from './Authorized.tsx'
 
-
 const SignUpForm = () => {
 
     // const [isAuthorized, setAuthorized ] = useContext(isAuthorizedMain);
@@ -18,12 +17,12 @@ const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [confirmPasswod, setConfirmPassword] = useState("");
 
-    const [showPassword, setShowPassword] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const [showPassword2, setShowPassword2] = useState(true);
+    const [showPassword2, setShowPassword2] = useState(false);
     const handleTogglePasswordVisibility2 = () => {
         setShowPassword2(!showPassword2);
     };

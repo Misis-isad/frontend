@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useState, useEffect } from "react"
 
 const imgLink = "/src/assets/background_card.jpg";
 
@@ -13,12 +14,22 @@ interface Props {
     title: string;
     status: string;
     id: number;
+    isPublic: boolean;
 }
 
 export default function VideoCard(props: Props) {
+    const [isReady, setIsReady] = useState(true);
+    const { link, title, status, id, isPublic } = props;
 
-    const { link, title, status, id } = props;
-    let source  = `/article/${id}`;
+
+    useEffect(() => {
+        if (status === "processing") setIsReady(false);
+    }, []);
+
+    let source = ''
+    if (!isPublic) source = `/article/${id}`;
+    else source = `/articlePublic/${id}`;
+
     return (
         <Card sx={{ maxWidth: 700, boxShadow: '0px 0px 10px 5px rgba(0,0,0,0.3)', borderRadius: '15px', mt: 2, mb: 10, ml: 'auto', mr: 'auto' }} >
             <CardMedia
@@ -62,20 +73,23 @@ export default function VideoCard(props: Props) {
                     sx={{
                         flexGrow: 1,
                         fontFamily: 'Noto Sans',
-                        fontWeight: 300,
-                        fontSize: 16,
+                        fontWeight: 400,
+                        fontSize: 25,
                         color: '#333',
                         textDecoration: 'none',
                         mt: 2,
                         ml: 2
                     }}
                 >
-                    {status}
+                    {status === "processing" && 'Видео находится в обработке'}
+                    {status === "ready" && 'Статья сгенерирована'}
                 </Typography>
             </CardContent>
-            <CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-                <Button className="gradientButton" href={source} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 2, ml: 1, mr: 1 }}>Подробнее</Button>
-            </CardActions>
+            {isReady &&
+                (<CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                    <Button className="gradientButton" href={source} style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 'auto', mb: 2, ml: 1, mr: 1 }}>Подробнее</Button>
+                </CardActions>)
+            }
         </Card>
     );
 }

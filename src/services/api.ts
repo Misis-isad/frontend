@@ -13,6 +13,11 @@ interface VideoFormData {
     video_link: string;
 }
 
+interface CreateArticleData {
+    body: string;
+    record_id: number;
+}
+
 interface UserCreate {
     email: string;
     fio: string;
@@ -46,7 +51,6 @@ let token;
 // interface TokenAuthenticated {
 //     Authorization: string;
 // }
-
 interface AllRecords {
     limit: number;
     offset: number;
@@ -117,6 +121,23 @@ const ApiService = {
         return result;
     },
 
+    async createArticle(data: CreateArticleData) {
+        // let status = "video added";
+        let config = {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }
+        // console.log(getToken());
+        const response = await axios
+            .post(`${BASE_URL}/api/v1/article/${data.record_id}`, { body: data.body }, config)
+        // .catch(handleError);
+        let result = await response;
+        console.log(result);
+        console.log(result.data.id);
+        return result;
+    },
+
 
     async setPublishedStatus(data: PublishedStatus) {
         // let status = "video added";
@@ -126,8 +147,8 @@ const ApiService = {
             }
         }
         console.log(getToken());
-        const response = await axios 
-            .post(`${BASE_URL}/api/v1/record/${data.record_id}/published_status?published=${data.published}`,null,  config)
+        const response = await axios
+            .post(`${BASE_URL}/api/v1/record/${data.record_id}/published_status?published=${data.published}`, null, config)
         // .catch(handleError);
         let result = await response;
         console.log(result);
@@ -142,9 +163,29 @@ const ApiService = {
             }
         }
         const response = await axios.get(`${BASE_URL}/api/v1/article/${data}/main`, config);
-        let result = await response;
-        console.log('were here', result.data.body);
-        return result;
+        // let result = await response;
+        // console.log('were here', result.data.body);
+        return response;
+    },
+
+    async getRecordByArticleId(data: number) {
+        let config = {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }
+        const response = await axios.get(`${BASE_URL}/api/v1/record/by_article/${data}`, config);
+        return response;
+    },
+
+    async getRecordByRecordId(data: number) {
+        let config = {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }
+        const response = await axios.get(`${BASE_URL}/api/v1/record/${data}`, config);
+        return response;
     },
 
     async getAllRecords(data: AllRecords): Promise<RecordDto[]> {

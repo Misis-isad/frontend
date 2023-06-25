@@ -1,35 +1,30 @@
 import HomeHeader from "./pages/HomeHeader";
 import HomeContent from "./pages/HomeContent";
 import Article from "./components/Article";
+import ArticlePublic from "./components/ArticlePublic";
 import ArticleHeader from "./components/ArticleHeader";
 import VideosHeader from "./pages/VideosHeader";
 import AllArticlesHeader from "./pages/AllArticlesHeader";
 import AllArticlesContent from "./pages/AllArticlesContent";
 import VideosContent from "./pages/VideosContent";
 import Wave from 'react-wavify'
-import { useState }from 'react'
 import "./App.css";
 import CustomAppBar from "./components/AppBar";
 import { Container } from "@mui/material";
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
-    const [childParameter, setChildParameter] = useState('linear-gradient(184deg, #1F1B4C 9.74%, #0785CE 50.52%, #2091D3 77.08%, #2091D3 96.34%);');
-    //'url(/src/assets/articleBg1.png)'
-    function handleChildParameterChange(childParameter: string) {
-      setChildParameter(childParameter);
-    }
-
     return (
         <>
             <Container className="gradientSection" fixed={true} style={{ maxWidth: "100%", height: "735px", padding: 0, position: 'relative' }}
                 sx={{
-                    backgroundImage: childParameter
+                    backgroundImage: 'linear-gradient(184deg, #1F1B4C 9.74%, #0785CE 50.52%, #2091D3 77.08%, #2091D3 96.34%);'
                 }}>
                 <CustomAppBar />
                 <Routes>
                     <Route path="/" element={<HomeHeader/>}/>
-                    <Route path="/article/:id" element={<ArticleHeader onChildParameterChange={handleChildParameterChange}/>}/>
+                    <Route path="/article/:id" element={<ArticleHeader/>}/>
+                    <Route path="/articlePublic/:id" element={<ArticleHeader/>}/>
                     <Route path="/myVideos" element={<VideosHeader/>}/>
                     <Route path="/allArticles" element={<AllArticlesHeader/>}/>
                 </Routes>
@@ -51,6 +46,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomeContent/>}/>
                     <Route path="/article/:id" element={<Article/>}/>
+                    <Route path="/articlePublic/:id" element={<ArticlePublic/>}/>
                     <Route path="/myVideos" element={<VideosContent/>}/>
                     <Route path="/allArticles" element={<AllArticlesContent/>}/>
                 </Routes>

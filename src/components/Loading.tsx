@@ -78,7 +78,7 @@ const LoadingScreen = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                            Загрузка
+                            Ошибка Авторизации
                         </Typography>
                         <Box style={{ marginTop: '30px' }}>
                             {/* <BounceLoader aria-setsize={50} color={'#F3CF8E'} /> */}

@@ -7,10 +7,8 @@ import QueryBuilder from '@mui/icons-material/QueryBuilder';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useNavigate } from "react-router-dom";
 
-
 const VideoForm = () => {
     const navigate = useNavigate();
-
     const [link, setLink] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
@@ -92,47 +90,53 @@ const VideoForm = () => {
         setTimingScreenshot(event.target.value);
     };
 
-
     // handle submit
-    async function handleSubmit() {
-        let errorEmpty = false;
-        // check if link valid
-        if (!link) {
-            setError3(true);
-            errorEmpty = true;
-            setHelperText3('Введите ссылку на видео');
+async function handleSubmit() {
+    let errorEmpty = false;
+    // check if link valid
+    if (!link) {
+      setError3(true);
+      errorEmpty = true;
+      setHelperText3("Введите ссылку на видео");
+    } else {
+      setError3(false);
+      errorEmpty = false;
+      setHelperText3("");
+    }
+  
+    if (!error1 && !error2 && !error3 && !errorEmpty) {
+      setIsLoading(true);
+      //send data to server
+      try {
+        let response = await ApiService.createRecord({
+          settings: {
+            annotation_length: parseInt(lengthAnnotation) || 0,
+            article_length: parseInt(lengthArticle) || 0,
+            end_timecode: endTime,
+            screenshot_timing: parseInt(timingScreenshot) || 0,
+            start_timecode: startTime,
+          },
+          video_link: link,
+        });
+        // check if response is ok
+        if (response.status === 200) {
+          setIsLoading(false);
+          console.log("video", response.data.id);
+          navigate(`myVideos`);
+          console.log("hereeeee");
+        } else {
+          // handle other status codes
+          throw new Error(response.statusText);
         }
-        else {
-            setError3(false);
-            errorEmpty = false;
-            setHelperText3('');
-        }
-
-        if ((!error1 && !error2 && !error3 && !errorEmpty)) {
-            setIsLoading(true);
-            //send data to server
-            let response = ApiService.createRecord(
-                {
-                    "settings": {
-                        "annotation_length": parseInt(lengthAnnotation) || 0,
-                        "article_length": parseInt(lengthArticle) || 0,
-                        "end_timecode": endTime,
-                        "screenshot_timing": parseInt(timingScreenshot) || 0,
-                        "start_timecode": startTime
-                    },
-                    "video_link": link
-                }
-            );
-            let result = await response;
-            setIsLoading(false);
-
-            ///здесь нужен запрос articles/{record_id}
-            console.log('video', result.data.id);
-            navigate(`article/${result.data.id}`)
-
-            console.log('hereeeee')
-        }
-    };
+      } catch (error) {
+        // handle errors
+        setIsLoading(false);
+        console.log(error);
+        alert("Вы не авторизованы");
+      }
+    }
+  }
+  
 
     return (
         <Box flexDirection={'column'} alignItems='center' justifyContent="center" sx={{ display: 'flex' }}>
@@ -297,9 +301,7 @@ const VideoForm = () => {
                     />
                 </Box>
             </Paper>
-            {/* <Link to="/article"> */}
                 <Button onClick={handleSubmit} className="gradientButton" style={{ borderRadius: '20px', color: 'white' }} sx={{ mt: 2, ml: 'auto', mr: 'auto' }}>Сгенерировать</Button>
-            {/* </Link> */}
         </Box>
     )
 }

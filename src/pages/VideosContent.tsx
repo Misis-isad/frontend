@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { useState, useEffect } from "react";
 import VideoCard from "../components/VideoCard";
-import { Pagination} from "@mui/material";
+import { Pagination } from "@mui/material";
 import ApiService from "../services/api";
 // import RecordDto from "../services/api";
 
@@ -27,6 +27,7 @@ const videosPerPage = 3;
 function VideoContent() {
     const [page, setPage] = useState(1);
     const [dataRecords, setDataRecords] = useState([])
+    const [count, setCount] = useState(0)
 
     const handlePageChange = (
         event: React.ChangeEvent<unknown>,
@@ -36,30 +37,49 @@ function VideoContent() {
         console.log(event)
     };
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const data: any = await ApiService.getAllRecords({ limit: 10, offset: 0 });
+    //         setDataRecords(data);
+    //     };
+    //     fetchData();
+    //     console.log('all records!!!', dataRecords);
+    // }, []);
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         const fetchData = async () => {
+    //             const data: any = await ApiService.getAllRecords({ limit: 10, offset: 0 });
+    //             setDataRecords(data);
+    //         };
+    //         fetchData();
+    //         console.log('all records!!!', dataRecords);
+    //     }, 20000);
+    //     return () => clearInterval(interval);
+    //   }, []);
+
     useEffect(() => {
         const fetchData = async () => {
-            const data: any = await ApiService.getAllRecords({ limit: 10, offset: 0 });
-            setDataRecords(data);
-            //986
-
-            // All you have to do is define your result as a string array, like the following:
-
-            // const result : string[] = [];
-            // Without defining the array type, it by default will be never. So when you tried to add a string to it, it was a type mismatch, and so it threw the error you saw.
+          const data: any = await ApiService.getAllRecords({ limit: 10, offset: 0 });
+          setDataRecords(data);
         };
         fetchData();
-        console.log('all records!!!', dataRecords);
-    }, []);
+        const interval = setInterval(() => {
+          fetchData();
+          setCount(count + 1);
+        }, 5000);
+        return () => clearInterval(interval);
+      }, []);
 
-    const startIndex = (page - 1) * videosPerPage;
-    const endIndex = startIndex + videosPerPage;
-    const currentVideos = allVideos.slice(startIndex, endIndex);
+    // const startIndex = (page - 1) * videosPerPage;
+    // const endIndex = startIndex + videosPerPage;
+    // const currentVideos = allVideos.slice(startIndex, endIndex);
 
     return (
         <>
             <Container>
                 {dataRecords.map((video: any) => (
-                    <VideoCard link={video.video_link} title={video.title} status={"Готово"} id={video.id} />
+                    <VideoCard link={video.video_link} title={video.title} status={video.status} id={video.id} isPublic={false}/>
                 ))}
                 <Pagination
                     count={Math.ceil(allVideos.length / videosPerPage)}

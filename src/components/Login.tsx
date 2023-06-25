@@ -12,7 +12,7 @@ const LoginForm = () => {
     const [helperText1, setHelperText1] = useState('');
     const [error2, setError2] = useState(false);
     const [helperText2, setHelperText2] = useState('');
-    const [showPassword, setShowPassword] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
