@@ -5,20 +5,6 @@ import { Pagination } from "@mui/material";
 import ApiService from "../services/api";
 
 
-let obj = {
-    link: 'https://www.youtube.com/watch?v=Ta6pNPK3wig&t=2s',
-    title: "Бухгалтерия",
-    status: "в обработке",
-    id: 5
-}
-let allVideos = Array(10).fill(obj);
-allVideos[7] = {
-    link: "/src/assets/logo.jpeg",
-    title: "РАБОТАЕТ!!!",
-    status: "Супер интересная статья",
-    id: 7
-}
-
 
 
 const videosPerPage = 3;
@@ -43,9 +29,6 @@ function AllArticlesContent() {
         fetchData();
     }, []);
     
-
-    // const startIndex = (page - 1) * videosPerPage;
-    // const endIndex = startIndex + videosPerPage;
 
     return (
         <>
@@ -74,7 +57,7 @@ function AllArticlesContent() {
                     </Typography>
                 )}
                 <Pagination
-                    count={Math.ceil(allVideos.length / videosPerPage)}
+                    count={Math.ceil(dataRecords.length / videosPerPage)}
                     page={page}
                     onChange={handlePageChange}
                     sx={{ pl: 'auto', pb: 'auto' }}
